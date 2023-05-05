@@ -4,13 +4,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-
-@RequestMapping("/Proyecto")
 public class MainController {
-    @RequestMapping("/")
+    @RequestMapping({"/", "/index.html"})
     public String inicio(){
         return "index";
     }
-//prueba de comentario
+
+    @RequestMapping("/about.html")
+    public String about(){
+        return "about";
+    }
+
+    @RequestMapping("/products.html")
+    public String products(){
+        return "products";
+    }
+
+    @RequestMapping("/store.html")
+    public String store(){
+        return "store";
+    }
+
     
 }
