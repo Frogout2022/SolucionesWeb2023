@@ -1,0 +1,6 @@
+function enviarDatos(){
+
+}
+function recibirDatos(){
+
+}
