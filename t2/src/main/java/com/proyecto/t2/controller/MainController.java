@@ -11,6 +11,6 @@ public class MainController {
     public String inicio(){
         return "index";
     }
-
+//prueba de comentario
     
 }
