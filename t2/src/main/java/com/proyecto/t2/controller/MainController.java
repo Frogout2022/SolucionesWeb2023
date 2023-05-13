@@ -25,5 +25,8 @@ public class MainController {
         return "store";
     }
 
-    
+    @RequestMapping("/login.html")
+    public String login(){
+        return "login";
+    }
 }
