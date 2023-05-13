@@ -31,7 +31,7 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping("/Dashboard")
+    @RequestMapping("/intranet.html")
     public String dash(){
         return "intranet";
     }
