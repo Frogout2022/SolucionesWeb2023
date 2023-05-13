@@ -10,6 +10,6 @@ window.addEventListener('DOMContentLoaded', event => {
 })
 
 function enviarDatos(){
-    var usuario = document.getElementById("usuario").value;
-    window.location.href = "http://localhost:8099/dashboard/" + usuario;
+    event.preventDefault();
+    window.location.href = "http://localhost:8099/intranet.html";
 }
