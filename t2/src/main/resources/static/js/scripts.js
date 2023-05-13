@@ -8,3 +8,8 @@ window.addEventListener('DOMContentLoaded', event => {
     const listHoursArray = document.body.querySelectorAll('.list-hours li');
     listHoursArray[new Date().getDay()].classList.add(('today'));
 })
+
+function enviarDatos(){
+    var user = document.getElementById("user").value;
+    window.location.href = "http://localhost:8099/dashboard/" + user;
+}

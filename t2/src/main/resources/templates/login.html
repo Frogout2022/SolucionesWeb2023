@@ -15,7 +15,7 @@
     <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
-
+    <script th:src="@{/js/scripts.js}"></script>
     </head>
 <body>
     <div class="container-fluid">
@@ -45,7 +45,7 @@
                                         <label for="customCheck1" class="custom-control-label">Recuerdame</label>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Ingresar</button>
+                                        <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" onclick="enviarDatos();" href="login.html">Ingresar</button>
                                     </div>
                                 </form>
                             </div>
