@@ -1,0 +1,18 @@
+.login,
+.image {
+  min-height: 100vh;
+}
+
+.bg-image {
+  background-image: url('/assets/img/fondo_login.png');
+  background-size: cover;
+  background-position: center center;
+}
+
+.bg-right {
+    background: linear-gradient(to right, rgb(250,176,5), yellow);
+}
+
+.bg-icono {
+    margin-bottom: 50px;
+}
