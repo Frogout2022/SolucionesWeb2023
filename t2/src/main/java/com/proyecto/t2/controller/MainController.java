@@ -31,17 +31,8 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping("/dashboard")
+    @RequestMapping("/intranet.html")
     public String dash(){
-        // @RequestParam(name = "usuario", required = false, defaultValue = "s") String usuario, 
-        // @RequestParam(name = "contra",required = false, defaultValue = "1") String contra,
-        // Model model){
-        
-        // if(usuario=="admin"){
-        //     return "intranet";
-        // }else{
-        //     return "login";
-        // }
         return "intranet";
     }
 }
