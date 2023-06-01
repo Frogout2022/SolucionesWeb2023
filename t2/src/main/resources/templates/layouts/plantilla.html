@@ -25,15 +25,15 @@
         <!-- Navigation-->
         <nav th:fragment="opciones" class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
             <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Polleria Hnos. Erazo</a>
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" th:href="@{/}">Polleria Hnos. Erazo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Inicio</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">Platillos</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Combos</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Ubicanos</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="login.html">Ingresar</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" th:href="@{/}">Inicio</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" th:href="@{/about}">Platillos</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" th:href="@{/products}">Combos</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" th:href="@{/store}">Ubicanos</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" th:href="@{/login}">Ingresar</a></li>
                        
                     </ul>
                 </div>
@@ -49,7 +49,7 @@
                             <span class="section-heading-lower">Pollo a la brasa</span>
                         </h2>
                         <p class="mb-3">En un bol, mezcla el comino, la pimienta negra y una cucharada de sal. Reserva. En otro bol, mezcla la mostaza, la cerveza negra, el vinagre, el sillao, el ají panca y el ajo. Incorpora la mezcla seca. Coloca el pollo en una asadera alta y báñalo con la preparación anterior. Lleva la asadera al refrigerador durante 12 horas, dándole vueltas al pollo de vez en cuando para que cada lado se bañe en el jugo de maceración. Lleva al horno precalentado a 180 °C entre 45 y 50 minutos, aproximadamente. Retira, corta el pollo en cuatro partes y sirve.</p>
-                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="#!">VISITANOS</a></div>
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" th:href="@{/}">VISITANOS</a></div>
                     </div>
                 </div>
             </div>

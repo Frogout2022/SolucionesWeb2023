@@ -6,32 +6,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-    @RequestMapping({"/", "/index.html"})
+    @RequestMapping("/")
     public String inicio(){
         return "index";
     }
 
-    @RequestMapping("/about.html")
+    @RequestMapping("/about")
     public String about(){
         return "about";
     }
 
-    @RequestMapping("/products.html")
+    @RequestMapping("/products")
     public String products(){
         return "products";
     }
 
-    @RequestMapping("/store.html")
+    @RequestMapping("/store")
     public String store(){
         return "store";
     }
 
-    @RequestMapping("/login.html")
+    @RequestMapping("/login")
     public String login(){
         return "login";
     }
 
-    @RequestMapping("/intranet.html")
+    @RequestMapping("/intranet")
     public String dash(){
         return "intranet";
     }
