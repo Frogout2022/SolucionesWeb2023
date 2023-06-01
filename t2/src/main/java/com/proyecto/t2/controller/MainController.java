@@ -35,4 +35,8 @@ public class MainController {
     public String dash(){
         return "intranet";
     }
+    @RequestMapping("/registrarse")
+    public String registrarse(){
+        return "registrarse";
+    }
 }
