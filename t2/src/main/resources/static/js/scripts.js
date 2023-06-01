@@ -11,5 +11,5 @@ window.addEventListener('DOMContentLoaded', event => {
 
 function enviarDatos(){
     event.preventDefault();
-    window.location.href = "http://localhost:8099/intranet.html";
+    window.location.href = "http://localhost:8099/intranet";
 }

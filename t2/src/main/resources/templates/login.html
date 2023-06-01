@@ -48,10 +48,10 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-md-6 text-center">
-                                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" onclick="enviarDatos();" href="login.html">Ingresar</button>
+                                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" onclick="enviarDatos();" th:href="@{/login/}">Ingresar</button>
                                             </div>
                                             <div class="col-md-6 text-center">
-                                                <button type="button" onclick="enviarDatos()" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill">Registrarse</button>
+                                                <a th:href="@{/intranet}" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrarse</a>
                                             </div>
                                         </div>
                                     </div>
