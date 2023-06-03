@@ -1,5 +1,7 @@
 package com.proyecto.t2.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,16 @@ public class BebidaServiceImp implements IBebidaService{
     public void guardarBebidas(Bebida bebida) {
         bebidaDAO.save(bebida);
     }
-    
+    @Override
+    public List<Bebida> mostrBebidas() {
+       return (List<Bebida>)bebidaDAO.findAll();
+    }
+    @Override
+    public Bebida buscarBebida(Long id) {
+        return bebidaDAO.findById(id).orElse(null);
+    }
+    @Override
+    public void eliminarBebida(Long id) {
+        bebidaDAO.deleteById(id);
+    }
 }

@@ -14,6 +14,7 @@
                     </div>
                     <form th:action="@{/bebida/guardar}" th:object="${bebida}" method="post">
                         <div class="card-body">
+                            <input type="hidden" th:field="*{id}">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                         <label>NOMBRE: </label>
@@ -38,6 +39,10 @@
                             </div> 
                             <div class="row mt-3">
                                 <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-secondary" onclick="limpiarform();">
+                                        <i class="fa-regular fa-file"></i>
+                                        NUEVA CATEGORIA
+                                    </button>
                                     <button type="submit" class="btn btn-success">
                                         <i class="fa-solid fa-floppy-disk"></i>
                                             GUARDAR BEBIDA
@@ -47,7 +52,50 @@
                         </div>
                     </form>
 
-                    </div>
+                    <br><br>
+                        <div class="card ">
+                            <div class="card-header">
+                                Bebidas Registradas
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>NOMBRE</th>
+                                                <th>TIPO</th>
+                                                <th>TAMAÑO</th>
+                                                <th>PRECIO</th>
+                                                <th>STOCK</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr th:each="item: ${listaBebida}">
+                                                <td th:text="${item.nombre}"></td>
+                                                <td th:text="${item.tipo}"></td>
+                                                <td th:text="${item.tamano}"></td>
+                                                <td th:text="${item.precio}"></td>
+                                                <td th:text="${item.stock}"></td>
+                                                <td class="text-center">
+                                                    <a th:href="@{/bebida/mostrarEditar/} + ${item.id}" class="btn btn-warning">
+                                                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a th:href="@{/bebida/eliminar/} + ${item.id}" class="btn btn-danger"
+                                                    onclick="return confirm('Desea eliminar la bebida? ')">
+                                                        <i class="fa-solid fa-trash-can"></i> Eliminar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
 
 
                 </div>
@@ -55,5 +103,6 @@
         </div>
     </div>
     <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
+    <script th:src="@{/js/LibreriaBebida.js}"></script>
 </body>
 </html>
