@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS Bebida (
     PRIMARY KEY (IDBebida)
 ) ;
 
+select * from bebida;
+
 CREATE TABLE IF NOT EXISTS Menu (
     IDMenu INT AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(20) NULL,
@@ -37,6 +39,8 @@ CREATE TABLE IF NOT EXISTS Menu (
     Stock INT NULL,
     PRIMARY KEY (IDMenu)
 );
+
+select * from menu;
 
 CREATE TABLE IF NOT EXISTS Piqueo (
     IDPiqueo INT AUTO_INCREMENT NOT NULL,
@@ -57,6 +61,11 @@ CREATE TABLE IF NOT EXISTS Pollo (
     PRIMARY KEY (IDPollo)
 );
 
+insert into Pollo (nombre,precio,stock,cantidad) values
+('1/4 POLLO',18.5,10, '5'),
+('1/2 POLLO',28.5,11, '5'),
+('1 POLLO',58,12, '5');
+
 
 CREATE TABLE IF NOT EXISTS Combo (
     IDCombo INT AUTO_INCREMENT NOT NULL,
@@ -73,6 +82,15 @@ CREATE TABLE IF NOT EXISTS Combo (
     FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo),
     FOREIGN KEY (IDPollo) REFERENCES Pollo (IDPollo)
 ) ;
+
+insert into combo (nombre,precio,stock,idbebida, idmenu,idpiqueo) values
+('COMBO 1',55,10,null,null,null),
+('COMBO 2',65,10,null,null,null),
+('COMBO 3',75,10,null,null,null),
+('COMBO 4',85,10,null,null,null),
+('COMBO 5',95,10,null,null,null);
+
+select * from combo;
 
 CREATE TABLE IF NOT EXISTS Compra (
     IDCompra INT AUTO_INCREMENT NOT NULL,
@@ -93,6 +111,8 @@ CREATE TABLE IF NOT EXISTS Compra (
     FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente),
     FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo)
 );
+
+INSERT INTO COMPRA VALUES ();
 
 
 CREATE TABLE IF NOT EXISTS Trabajador (
