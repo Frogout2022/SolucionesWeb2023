@@ -24,6 +24,7 @@ public class Menu implements Serializable {
     private Double precio;
     @Column(name = "Stock")
     private Long stock;
+    
     public Long getId() {
         return id;
     }

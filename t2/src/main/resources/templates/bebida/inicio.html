@@ -12,28 +12,28 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">BEBIDAS</h1>
                     </div>
-                    
+                    <form th:action="@{/bebida/guardar}" th:object="${bebida}" method="post">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                         <label>NOMBRE: </label>
-                                        <input type="text" class="form-control" placeholder="Ingrese el nombre"/>
+                                        <input th:field="*{nombre}" type="text" class="form-control" placeholder="Ingrese el nombre"/>
                                 </div>
                                 <div class="col-md-6 mb-3" >
                                         <label>TIPO: </label>
-                                        <input type="text" class="form-control" placeholder="Ingrese la descripcion"/>
+                                        <input th:field="*{tipo}" type="text" class="form-control" placeholder="Ingrese la descripcion"/>
                                 </div>
                                 <div class="col-md-6 mb-3" >
                                     <label>TAMAÑO: </label>
-                                    <input type="text" class="form-control" placeholder="Ingrese la descripcion"/>
+                                    <input th:field="*{tamano}" type="text" class="form-control" placeholder="Ingrese la descripcion"/>
                                 </div>
-                            <div class="col-md-6 mb-3" >
-                                <label>PRECIO: </label>
-                                <input type="text" class="form-control" placeholder="Ingrese la descripcion"/>
-                            </div>
-                            <div class="col-md-6 mb-3" >
-                                <label>STOCK: </label>
-                                <input type="text" class="form-control" placeholder="Ingrese la descripcion"/>
+                                <div class="col-md-6 mb-3" >
+                                    <label>PRECIO: </label>
+                                    <input th:field="*{precio}" type="text" class="form-control" placeholder="Ingrese la descripcion"/>
+                                </div>
+                                <div class="col-md-6 mb-3" >
+                                    <label>STOCK: </label>
+                                    <input th:field="*{stock}" type="text" class="form-control" placeholder="Ingrese la descripcion"/>
                                 </div>
                             </div> 
                             <div class="row mt-3">
@@ -45,6 +45,8 @@
                                 </div>
                             </div>
                         </div>
+                    </form>
+
                     </div>
 
 
