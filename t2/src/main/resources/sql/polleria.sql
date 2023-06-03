@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS Polleria;
-
+#drop database Polleria;
 USE Polleria;
 
 CREATE TABLE IF NOT EXISTS Cliente (
@@ -12,6 +12,12 @@ CREATE TABLE IF NOT EXISTS Cliente (
     Distrito VARCHAR(50) NULL,
     PRIMARY KEY (IDCliente)
 ) ;
+INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
+('MILHOS KASSIAN SIHUAY BARZOLA', 'Joaquin Capello 2486','mi@g.com', '123456', 'Lima'),
+('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Direccion2','chr@g.com', '123456', 'Lima'),
+('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','ge@g.com', '123456', 'Lima');
+
+select * from Cliente;
 
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
@@ -98,5 +104,13 @@ CREATE TABLE IF NOT EXISTS Trabajador (
     Clave VARCHAR(15) NOT NULL,
     PRIMARY KEY (IDTrabajador)
 );
+
+INSERT INTO TRABAJADOR (nombre, usuario, clave) VALUES
+('MILHOS SIHUAY BARZOLA','mi_adm@g.com', '12345678'),
+('CHRISTIAN  IZQUIERDO ALLEMANT', 'chr_adm@g.com', '12345678'),
+('EMERSON CAHUANA PEREZ PALMA','ge_adm@g.com', '12345678');
+
+select * from trabajador;
+
 
 
