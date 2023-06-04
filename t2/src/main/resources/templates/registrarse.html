@@ -46,7 +46,7 @@
     <div class="row g-5 d-flex justify-content-center">
       <div class="col-md-7 col-lg-8">
 
-        <form th:action="@{/login/registrar}" method="post">
+        <form th:action="@{/login/registrar}" onsubmit="return validarCheckbox()" method="post">
 
           <div class="row g-3">
             <div class="col-sm-6">
@@ -121,8 +121,8 @@
             </div>
           <hr class="my-4">
           <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Acepto términos y condiciones</label>
+            <input type="checkbox" class="form-check-input" id="terminos">
+            <label class="form-check-label" for="terminos">Acepto términos y condiciones</label>
           </div>
 
           <hr class="my-4">
@@ -132,6 +132,18 @@
             alert("Correo ingresado ya existe");
           </script>
         </form>
+
+        <script>
+          function validarCheckbox() {
+              var checkbox = document.getElementById("terminos");
+              if (!checkbox.checked) {
+                  alert("Debes aceptar los términos y condiciones.");
+                  return false; // Evita el envío del formulario
+              }
+              return true; // Permite el envío del formulario
+          }
+      </script>
+
       </div>
     </div>
   </main>

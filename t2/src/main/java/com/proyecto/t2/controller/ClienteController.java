@@ -51,7 +51,7 @@ public class ClienteController {
             if(listaClientes.size()!=0){
                 //buscar correo
                 for(int i=0; i<listaClientes.size();i++){
-                    if( listaClientes.get(i).getCorreo().equals("correo") ){
+                    if( correo.equals(listaClientes.get(i).getCorreo()) ){
                             //correo ya existe!
                             
                             emailDuplicado= true;
@@ -61,7 +61,7 @@ public class ClienteController {
                         emailDuplicado = false;
                     }
                 }
-
+                emailDuplicado = true;
                 if(!emailDuplicado){
                     //INSERT CLIENTE
                         //iClienteService.registrarCliente(cliente);
@@ -70,7 +70,7 @@ public class ClienteController {
                         
                 }else{
                     model.addAttribute("errorEmail", "Correo ya registrado");
-                    return "redirect:/registrarse";
+                    return "registrarse";
                 }
 
             }else{
@@ -93,7 +93,7 @@ public class ClienteController {
                     //return "intranet";
                     b = true;
                 }else{
-                    model.addAttribute("errorMessage", "Credenciales incorrectas");
+                    
                     //return "login";
                 }
                 
@@ -104,7 +104,10 @@ public class ClienteController {
         }
         
         if(b) return "intranet";
-        else return "redirect:/login";
+        else {
+            model.addAttribute("errorMessage", "Credenciales incorrectas");
+            return "login";
+        }
         
         
        
