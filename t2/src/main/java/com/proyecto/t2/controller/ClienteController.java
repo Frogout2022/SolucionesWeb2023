@@ -35,7 +35,7 @@ public class ClienteController {
     public String registrar(@RequestParam("nombre") String nombre,
             @RequestParam("apellido") String apellido,
             @RequestParam("celular") String cel,
-            @RequestParam("email") String correo,
+            @RequestParam("correo") String correo,
             @RequestParam("clave") String clave,
             @RequestParam("address") String direccion,
             Model model,
@@ -53,20 +53,16 @@ public class ClienteController {
                 for(int i=0; i<listaClientes.size();i++){
                     if( correo.equals(listaClientes.get(i).getCorreo()) ){
                             //correo ya existe!
-                            
                             emailDuplicado= true;
-                    }else{
-                        //insertar cliente
-                        //validar celular
-                        emailDuplicado = false;
+                            break;
                     }
                 }
-                emailDuplicado = true;
+                
                 if(!emailDuplicado){
                     //INSERT CLIENTE
                         //iClienteService.registrarCliente(cliente);
-    
-                        return "redirect:/login";
+                        model.addAttribute("correo_ingresado", correo);
+                        return "login";
                         
                 }else{
                     model.addAttribute("errorEmail", "Correo ya registrado");
