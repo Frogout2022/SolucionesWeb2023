@@ -11,5 +11,13 @@ window.addEventListener('DOMContentLoaded', event => {
 
 function enviarDatos(){
     event.preventDefault();
-    window.location.href = "http://localhost:8099/intranet";
+    
+    var user = document.getElementById("usuario").value;
+    var contra = document.getElementById("contra").value;
+    var b = 'bebida';
+    
+    
+    window.location.href = "http://localhost:8099/"+user+"/";
+   
+    
 }

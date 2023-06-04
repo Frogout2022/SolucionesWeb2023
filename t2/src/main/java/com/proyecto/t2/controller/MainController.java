@@ -25,11 +25,12 @@ public class MainController {
     public String store(){
         return "store";
     }
-
+    /* 
     @RequestMapping("/login")
     public String login(){
         return "login";
     }
+    */
 
     @RequestMapping("/intranet")
     public String dash(){
