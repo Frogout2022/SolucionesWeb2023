@@ -50,7 +50,7 @@ public class ClienteController {
                 for(int i=0; i<listaClientes.size();i++){
                     if( listaClientes.get(i).getCorreo().equals("correo") ){
                             //correo ya existe!
-                            model.addAttribute("errorEmail", "Correo ya registrado");
+                            
                             emailDuplicado= true;
                     }else{
                         //insertar cliente
@@ -58,15 +58,18 @@ public class ClienteController {
                     }
                 }
             }else{
-                //lista vacía
+                //lista de clientes en la BD vacía
+                return "error";
             }
 
             if(!emailDuplicado){
+                //INSERT CLIENTE
                     //iClienteService.registrarCliente(cliente);
 
                     return "redirect:/login";
                     
             }else{
+                model.addAttribute("errorEmail", "Correo ya registrado");
                 return "redirect:/registrarse";
             }
              
