@@ -46,7 +46,7 @@
     <div class="row g-5 d-flex justify-content-center">
       <div class="col-md-7 col-lg-8">
 
-        <form th:action="@{/login/registrar}" onsubmit="return validarCheckbox()" method="post">
+        <form th:action="@{/login/registrar}" onsubmit="return validaciones()" method="post">
 
           <div class="row g-3">
             <div class="col-sm-6">
@@ -73,7 +73,7 @@
               </div>
             <div class="col-12">
               <label for="email" class="form-label">EMAIL </label>
-              <input type="email" class="form-control" name="correo" id="email" placeholder="tucorreo@ejemplo.com">
+              <input type="email" class="form-control" name="correo" id="email" placeholder="tucorreo@ejemplo.com" required>
               <div class="invalid-feedback">
                 Ingresa tu correo electrónico.
               </div>
@@ -81,14 +81,14 @@
 
             <div class="col-sm-6">
               <label for="clave" class="form-label">CONTRASEÑA</label>
-              <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingrese su clave">
+              <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingrese su clave" required>
               <div class="invalid-feedback">
                 Ingresa tu clave
               </div>
             </div>
             <div class="col-sm-6">
               <label for="clave2" class="form-label">REPITA SU CONTRASEÑA</label>
-              <input type="password" class="form-control" name="clave2" id="clave2" placeholder="Ingrese nuevamente">
+              <input type="password" class="form-control" name="clave2" id="clave2" placeholder="Ingrese nuevamente" required>
               <div class="invalid-feedback">
                 Repita su clave
               </div>
@@ -134,13 +134,27 @@
         </form>
 
         <script>
-          function validarCheckbox() {
-              var checkbox = document.getElementById("terminos");
+          function validaciones() {
+            var contrasena = document.getElementById("clave").value;
+            var confirmarContrasena = document.getElementById("clave2").value;
+            var checkbox = document.getElementById("terminos");
+
+
+            if (contrasena !== confirmarContrasena) {
+                alert("Las contraseñas no coinciden.");
+                return false; // Evita el envío del formulario
+            }else{
+
               if (!checkbox.checked) {
                   alert("Debes aceptar los términos y condiciones.");
                   return false; // Evita el envío del formulario
+              }else{
+                return true; // Permite el envío del formulario
               }
-              return true; // Permite el envío del formulario
+            }
+
+              
+              
           }
       </script>
 
