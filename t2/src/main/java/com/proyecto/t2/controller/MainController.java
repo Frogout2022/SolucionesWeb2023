@@ -25,12 +25,18 @@ public class MainController {
     public String store(){
         return "store";
     }
+
+    @RequestMapping("/error_html")
+    public String error(){
+        return "error/error";
+    }
     /* 
     @RequestMapping("/login")
     public String login(){
         return "login";
     }
     */
+    
 
     @RequestMapping("/intranet")
     public String dash(){

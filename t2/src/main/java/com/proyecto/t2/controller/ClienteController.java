@@ -1,5 +1,6 @@
 package com.proyecto.t2.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,8 @@ public class ClienteController {
             model.addAttribute("cliente", cli);
 
             Boolean emailDuplicado=false;
+            listaClientes = new ArrayList<>();
+
             listaClientes = iClienteService.listarClientes(); //llenar lista
             if(listaClientes.size()!=0){
                 //buscar correo
@@ -54,25 +57,27 @@ public class ClienteController {
                             emailDuplicado= true;
                     }else{
                         //insertar cliente
+                        //validar celular
                         emailDuplicado = false;
                     }
                 }
+
+                if(!emailDuplicado){
+                    //INSERT CLIENTE
+                        //iClienteService.registrarCliente(cliente);
+    
+                        return "redirect:/login";
+                        
+                }else{
+                    model.addAttribute("errorEmail", "Correo ya registrado");
+                    return "redirect:/registrarse";
+                }
+
             }else{
                 //lista de clientes en la BD vacía
-                return "error";
+                model.addAttribute("error", "Lista vacía de la tabla Cliente en BD");
+                return "error/error";
             }
-
-            if(!emailDuplicado){
-                //INSERT CLIENTE
-                    //iClienteService.registrarCliente(cliente);
-
-                    return "redirect:/login";
-                    
-            }else{
-                model.addAttribute("errorEmail", "Correo ya registrado");
-                return "redirect:/registrarse";
-            }
-             
 
       // return "login";
     }
