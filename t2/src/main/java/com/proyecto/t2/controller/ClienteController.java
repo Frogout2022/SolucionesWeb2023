@@ -17,25 +17,67 @@ public class ClienteController {
 
     @Autowired
     private IClienteService iClienteService;
+    
+    private List<Cliente> listaClientes;
 
     @RequestMapping("")
     public String ingresar(){
+    
         return "login";
     }
     @RequestMapping("/")
     public String ingresar2(){
+        
         return "login";
     }
+    @RequestMapping("/registrar")
+    public String registrar(@RequestParam("nombre") String nombre,
+            @RequestParam("apellido") String apellido,
+            @RequestParam("celular") String cel,
+            @RequestParam("email") String correo,
+            @RequestParam("clave") String clave,
+            @RequestParam("address") String direccion,
+            Model model,
+            Cliente cliente){
 
+            Cliente cli = new Cliente();
+            model.addAttribute("cliente", cli);
+
+            Boolean emailDuplicado=false;
+            listaClientes = iClienteService.listarClientes(); //llenar lista
+            if(listaClientes.size()!=0){
+                //buscar correo
+                for(int i=0; i<listaClientes.size();i++){
+                    if( listaClientes.get(i).getCorreo().equals("correo") ){
+                            //correo ya existe!
+                            model.addAttribute("errorEmail", "Correo ya registrado");
+                            emailDuplicado= true;
+                    }else{
+                        //insertar cliente
+                        emailDuplicado = false;
+                    }
+                }
+            }else{
+                //lista vacía
+            }
+
+            if(!emailDuplicado){
+                    //iClienteService.registrarCliente(cliente);
+
+                    return "redirect:/login";
+                    
+            }else{
+                return "redirect:/registrarse";
+            }
+             
+
+      // return "login";
+    }
     @RequestMapping("/validar")
     public String validar(@RequestParam("correo") String correo,@RequestParam("clave") String clave, Model model){
-
-        //cliente = iClienteService.buscarCliente(id);
-        //model.addAttribute("cliente", cliente);
-        
-        model.addAttribute("mensaje", "entro");
         Boolean b= false;
-        List<Cliente> listaClientes =  iClienteService.listarClientes();
+
+        listaClientes = iClienteService.listarClientes();
         if(listaClientes.size()!=0){
             for(int i=0; i<listaClientes.size(); i++){
                 if( correo.equals( listaClientes.get(i).getCorreo() ) 
@@ -54,7 +96,7 @@ public class ClienteController {
         }
         
         if(b) return "intranet";
-        else return "login";
+        else return "redirect:/login";
         
         
        
