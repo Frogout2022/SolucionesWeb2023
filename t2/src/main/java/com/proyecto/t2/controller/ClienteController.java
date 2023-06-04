@@ -13,7 +13,7 @@ import com.proyecto.t2.model.entidad.Cliente;
 import com.proyecto.t2.model.service.IClienteService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/cliente")
 public class ClienteController {
 
     @Autowired
@@ -21,29 +21,36 @@ public class ClienteController {
     
     private List<Cliente> listaClientes;
 
-    @RequestMapping("")
+    @RequestMapping("/login")
     public String ingresar(){
     
         return "login";
     }
-    @RequestMapping("/")
+    @RequestMapping("/login/")
     public String ingresar2(){
         
         return "login";
     }
-    @RequestMapping("/registrar")
-    public String registrar(@RequestParam("nombre") String nombre,
-            @RequestParam("apellido") String apellido,
-            @RequestParam("celular") String cel,
-            @RequestParam("correo") String correo,
-            @RequestParam("clave") String clave,
-            @RequestParam("address") String direccion,
+    
+    @RequestMapping("/registrarse")
+    public String registrarse(Model model){
+
+        Cliente cliente = new Cliente();
+        model.addAttribute("cli", cliente);
+        
+        //iClienteService.registrarCliente(cliente);
+        return "registrarse"; //ruta html
+    }
+    
+
+    @RequestMapping("/guardar")
+    public String registrar(
+            
             Model model,
-            Cliente cliente){
+            Cliente user //recuperamos el objeto user del POST
+            ){
 
-            Cliente cli = new Cliente();
-            model.addAttribute("cliente", cli);
-
+        
             Boolean emailDuplicado=false;
             listaClientes = new ArrayList<>();
 
@@ -51,7 +58,7 @@ public class ClienteController {
             if(listaClientes.size()!=0){
                 //buscar correo
                 for(int i=0; i<listaClientes.size();i++){
-                    if( correo.equals(listaClientes.get(i).getCorreo()) ){
+                    if( user.getCorreo().equals(listaClientes.get(i).getCorreo()) ){
                             //correo ya existe!
                             emailDuplicado= true;
                             break;
@@ -60,8 +67,8 @@ public class ClienteController {
                 
                 if(!emailDuplicado){
                     //INSERT CLIENTE
-                        //iClienteService.registrarCliente(cliente);
-                        model.addAttribute("correo_ingresado", correo);
+                        iClienteService.registrarCliente(user);
+                        model.addAttribute("correo_ingresado", user.getCorreo());
                         return "login";
                         
                 }else{
@@ -77,6 +84,8 @@ public class ClienteController {
 
       // return "login";
     }
+
+
     @RequestMapping("/validar")
     public String validar(@RequestParam("correo") String correo,@RequestParam("clave") String clave, Model model){
         Boolean b= false;
@@ -88,11 +97,8 @@ public class ClienteController {
                     && clave.equals( listaClientes.get(i).getClave() ) ) {
                     //return "intranet";
                     b = true;
-                }else{
-                    
-                    //return "login";
+                    break;
                 }
-                
             }
         }else{
             //bd vacía
@@ -102,7 +108,7 @@ public class ClienteController {
         if(b) return "intranet";
         else {
             model.addAttribute("errorMessage", "Credenciales incorrectas");
-            return "login";
+            return "redirect:/cliente/login";
         }
         
         

@@ -7,17 +7,16 @@ CREATE TABLE IF NOT EXISTS Cliente (
     Nombre VARCHAR(50) NULL,
     Direccion VARCHAR(50) NULL,
     Telefono VARCHAR(13) NULL,
-    Correo VARCHAR(20) NOT NULL,
+    Correo VARCHAR(40) NOT NULL,
     Clave VARCHAR(15) NOT NULL,
     Distrito VARCHAR(50) NULL,
     PRIMARY KEY (IDCliente)
 ) ;
+
 INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
 ('MILHOS KASSIAN SIHUAY BARZOLA', 'Joaquin Capello 2486','mi@g.com', '123456', 'Lima'),
 ('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Direccion2','chr@g.com', '123456', 'Lima'),
 ('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','ge@g.com', '123456', 'Lima');
-
-select * from Cliente;
 
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
@@ -29,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Bebida (
     PRIMARY KEY (IDBebida)
 ) ;
 
-select * from bebida;
+#select * from bebida;
 
 CREATE TABLE IF NOT EXISTS Menu (
     IDMenu INT AUTO_INCREMENT NOT NULL,
@@ -40,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Menu (
     PRIMARY KEY (IDMenu)
 );
 
-select * from menu;
+#select * from menu;
 
 CREATE TABLE IF NOT EXISTS Piqueo (
     IDPiqueo INT AUTO_INCREMENT NOT NULL,
@@ -90,7 +89,7 @@ insert into combo (nombre,precio,stock,idbebida, idmenu,idpiqueo) values
 ('COMBO 4',85,10,null,null,null),
 ('COMBO 5',95,10,null,null,null);
 
-select * from combo;
+#select * from combo;
 
 CREATE TABLE IF NOT EXISTS Compra (
     IDCompra INT AUTO_INCREMENT NOT NULL,
@@ -112,7 +111,6 @@ CREATE TABLE IF NOT EXISTS Compra (
     FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo)
 );
 
-INSERT INTO COMPRA VALUES ();
 
 
 CREATE TABLE IF NOT EXISTS Trabajador (
@@ -130,7 +128,7 @@ INSERT INTO TRABAJADOR (nombre, usuario, clave) VALUES
 ('CHRISTIAN  IZQUIERDO ALLEMANT', 'chr_adm@g.com', '12345678'),
 ('EMERSON CAHUANA PEREZ PALMA','ge_adm@g.com', '12345678');
 
-select * from trabajador;
+#select * from trabajador;
 
 
 
