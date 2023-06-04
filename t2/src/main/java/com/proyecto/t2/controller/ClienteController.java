@@ -24,7 +24,7 @@ public class ClienteController {
     @RequestMapping("/login")
     public String ingresar(){
     
-        return "login";
+        return "cliente/login"; //ruta html
     }
     @RequestMapping("/login/")
     public String ingresar2(){
@@ -39,7 +39,7 @@ public class ClienteController {
         model.addAttribute("cli", cliente);
         
         //iClienteService.registrarCliente(cliente);
-        return "registrarse"; //ruta html
+        return "cliente/registrarse"; //ruta html
     }
     
 
