@@ -45,15 +45,16 @@ public class ClienteController {
 
     @RequestMapping("/guardar")
     public String registrar(
-            
+            @RequestParam("apellido") String apellido,
             Model model,
             Cliente user //recuperamos el objeto user del POST
             ){
 
-        
+            user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
+            
             Boolean emailDuplicado=false;
-            listaClientes = new ArrayList<>();
 
+            listaClientes = new ArrayList<>(); //inicializar lista
             listaClientes = iClienteService.listarClientes(); //llenar lista
             if(listaClientes.size()!=0){
                 //buscar correo
@@ -68,11 +69,12 @@ public class ClienteController {
                 if(!emailDuplicado){
                     //INSERT CLIENTE
                         iClienteService.registrarCliente(user);
-                        model.addAttribute("correo_ingresado", user.getCorreo());
+                        //model.addAttribute("correo_ingresado", user.getCorreo());
+                        model.addAttribute("mensaje_registro", "Registro exitoso");
                         return "login";
                         
                 }else{
-                    model.addAttribute("errorEmail", "Correo ya registrado");
+                    model.addAttribute("mensaje_registro", "Correo ya registrado");
                     return "registrarse";
                 }
 

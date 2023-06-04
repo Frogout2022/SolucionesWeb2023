@@ -61,13 +61,17 @@
                                     <div th:if="${errorMessage}">
                                         <p th:text="${errorMessage}" style="color: red;"></p>
                                     </div>
-                                    -->
-                                    <div th:if="${correo_ingresado}">
-                                        <p th:text="${correo_ingresado}" style="color: red;">Correo: </p>
-                                    </div>
                                     <script th:if="${errorMessage}">
                                         alert("Credenciales incorrectas");
                                     </script>
+                                    -->
+                                    <div th:if="${mensaje_registro}">
+                                        <p th:text="${mensaje_registro}" style="color: red;">Correo: </p>
+                                    </div>
+                                    <div th:if="${errorMessage}">
+                                        <p th:text="${errorMessage}" style="color: red;">Correo: </p>
+                                    </div>
+                                    
                                     
 
                                 </form>
