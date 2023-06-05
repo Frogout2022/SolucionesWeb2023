@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.proyecto.t2.model.entidad.Cliente;
 import com.proyecto.t2.model.service.IClienteService;
 
@@ -38,7 +39,7 @@ public class ClienteController {
         Cliente cliente = new Cliente();
         model.addAttribute("cli", cliente);
         
-        //iClienteService.registrarCliente(cliente);
+    
         return "cliente/registrarse"; //ruta html
     }
     
@@ -52,30 +53,38 @@ public class ClienteController {
 
             user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
             
-            Boolean emailDuplicado=false;
+            Boolean emailDuplicado=false, telfDuplicado=false;
 
             listaClientes = new ArrayList<>(); //inicializar lista
             listaClientes = iClienteService.listarClientes(); //llenar lista
             if(listaClientes.size()!=0){
-                //buscar correo
+                
                 for(int i=0; i<listaClientes.size();i++){
+                    //buscar correo
                     if( user.getCorreo().equals(listaClientes.get(i).getCorreo()) ){
                             //correo ya existe!
-                            emailDuplicado= true;
-                            break;
+                            emailDuplicado= true;  
+                    }
+                    //buscar telefono
+                    if( user.getTelefono().equals(listaClientes.get(i).getTelefono()) ){
+                        //telefono ya existe!
+                        telfDuplicado= true;   
                     }
                 }
                 
-                if(!emailDuplicado){
-                    //INSERT CLIENTE
-                        iClienteService.registrarCliente(user);
-                        //model.addAttribute("correo_ingresado", user.getCorreo());
+                if(!emailDuplicado && !telfDuplicado){
+                        iClienteService.registrarCliente(user); // --> INSERT CLIENTE
+                        
                         model.addAttribute("mensaje_registro", "Registro exitoso");
-                        return "login";
+                        return "cliente/login";
                         
                 }else{
-                    model.addAttribute("mensaje_registro", "Correo ya registrado");
-                    return "registrarse";
+                    //if(telfDuplicado)
+                    model.addAttribute("valid_reg");
+                    //if(emailDuplicado)
+                    model.addAttribute("validacion_email", "Correo ya registrado");
+                    
+                    return "redirect:/cliente/registrarse";
                 }
 
             }else{
@@ -89,7 +98,11 @@ public class ClienteController {
 
 
     @RequestMapping("/validar")
-    public String validar(@RequestParam("correo") String correo,@RequestParam("clave") String clave, Model model){
+    public String validar(
+        @RequestParam("correo") String correo,
+        @RequestParam("clave") String clave, 
+        Model model){
+
         Boolean b= false;
 
         listaClientes = iClienteService.listarClientes();
@@ -104,12 +117,13 @@ public class ClienteController {
             }
         }else{
             //bd vacía
-            return "login";
+            model.addAttribute("errorMessage","Tabla cliente en Base de datos vacía");
+            return "error/error";
         }
         
         if(b) return "intranet";
         else {
-            model.addAttribute("errorMessage", "Credenciales incorrectas");
+            model.addAttribute("errorMessage", "Usuario o clave incorrectas");
             return "redirect:/cliente/login";
         }
         

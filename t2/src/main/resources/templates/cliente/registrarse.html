@@ -78,6 +78,9 @@
                 Ingresa tu correo electrónico.
               </div>
             </div>
+            <div th:if="${valid_reg}">
+              <p style="color: red;">EMAIL DUPLI</p>
+            </div>
 
             <div class="col-sm-6">
               <label for="clave" class="form-label">CONTRASEÑA</label>
@@ -127,11 +130,14 @@
 
           <hr class="my-4">
           <button class="w-100 btn btn-primary btn-lg" type="submit">REGISTRARSE</button>
+
           
-          <script th:if="${errorEmail}">
-            alert("Correo ingresado ya existe");
-          </script>
+          <div >
+            <p style="color: red;">TELF DUPLI</p>
+          </div>
+          
         </form>
+        
 
         <script>
           function validaciones() {
