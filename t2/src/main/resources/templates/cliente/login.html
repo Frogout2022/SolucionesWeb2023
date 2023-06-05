@@ -33,18 +33,19 @@
                             <div class="bg-icono text-center"><img th:src="@{/assets/img/favicon2.png}" width="300" height="300"></div>
                             <div class="col-lg-10 col-xl-7 mx-auto">  
 
-                                <form th:action="@{/cliente/validar}"  method="post">
+                                <form th:action="@{/cliente/login}"  method="post">
                                     <div class="form-group mb-3">
-                                
                                         <input id="usuario" name="correo" type="text" placeholder="Usuario" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" required>
                                     </div>
                                     <div class="form-group mb-3">
                                         <input id="contra" name="clave" type="password" placeholder="Contraseña"  class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" required>
                                     </div>
-                                    <div class="custom-control custom-checkbox mb-3">
-                                        <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                                        <label for="customCheck1" class="custom-control-label">Recuerdame</label>
+                                    <div>
+                                        <label>
+                                            <input type="checkbox" name="recuerdame"> Recuérdame
+                                        </label>
                                     </div>
+                                    
 
 
                                     <div class="container-fluid">
@@ -61,22 +62,17 @@
                                     <div th:if="${errorMessage}">
                                         <p th:text="${errorMessage}" style="color: red;"></p>
                                     </div>
-                                    <script th:if="${errorMessage}">
-                                        alert("Credenciales incorrectas");
-                                    </script>
+                                    
                                     -->
-                                    <div th:if="${mensaje_registro}">
-                                        <p th:text="${mensaje_registro}" style="color: red;">Correo: </p>
+                                    
+                                    <div th:if="${valid_reg}">
+                                        <p th:text="${valid_reg}" style="color: red;"> REGISTRO EXITOS</p>
                                     </div>
-                                    <div th:if="${errorMessage}">
-                                        <p th:text="${errorMessage}" style="color: red;">Correo: </p>
+                                    <div th:if="${errorLogin}">
+                                        <p th:text="${errorLogin}" style="color: red;"> Errorrrr</p>
                                     </div>
                                     
-                                    
-
                                 </form>
-
-                                
 
                             </div>
                         </div>

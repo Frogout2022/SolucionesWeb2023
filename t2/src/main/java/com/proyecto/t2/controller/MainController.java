@@ -1,11 +1,7 @@
 package com.proyecto.t2.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.proyecto.t2.model.entidad.Cliente;
-
 
 @Controller
 public class MainController {
@@ -33,12 +29,6 @@ public class MainController {
     public String error(){
         return "error/error";
     }
-    /* 
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
-    */
     
 
     @RequestMapping("/intranet")

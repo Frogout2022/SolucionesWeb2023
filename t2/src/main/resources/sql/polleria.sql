@@ -18,6 +18,9 @@ INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
 ('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Direccion2','chr@g.com', '123456', 'Lima'),
 ('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','ge@g.com', '123456', 'Lima');
 
+
+select * from cliente;
+
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(20) NULL,

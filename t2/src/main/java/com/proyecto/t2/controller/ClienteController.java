@@ -6,7 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -22,34 +28,50 @@ public class ClienteController {
     
     private List<Cliente> listaClientes;
 
-    @RequestMapping("/login")
+    @GetMapping("/") //vista
     public String ingresar(){
-    
         return "cliente/login"; //ruta html
     }
-    @RequestMapping("/login/")
+    @GetMapping("") //vista
     public String ingresar2(){
-        
-        return "login";
+        return "cliente/login"; //ruta html
+    }
+
+    @GetMapping("/login") //vista
+    public String login(){ 
+        return "cliente/login"; //ruta html
+    }
+
+    @GetMapping("/login/") //vista
+    public String login2(){
+        return "cliente/login"; //ruta html
     }
     
-    @RequestMapping("/registrarse")
-    public String registrarse(Model model){
-
+    @GetMapping("/registro") //vista
+    public String mostrarFormRegistro(Model model){
+        //crear cliente para que el html capture los datos y los guarde ahi
         Cliente cliente = new Cliente();
         model.addAttribute("cli", cliente);
         
-    
-        return "cliente/registrarse"; //ruta html
+        return "/cliente/registrarse"; //ruta html
+    }
+    @GetMapping("/registrar")
+    public String regi(){
+
+        return "registrarse";
     }
     
 
-    @RequestMapping("/guardar")
-    public String registrar(
+    
+    @PostMapping("/registro") //funcion
+    public String procesarFormRegistro(
             @RequestParam("apellido") String apellido,
             Model model,
-            Cliente user //recuperamos el objeto user del POST
+            
+            @ModelAttribute("cli") Cliente user //recuperamos el objeto user del POST
             ){
+
+               
 
             user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
             
@@ -68,23 +90,27 @@ public class ClienteController {
                     //buscar telefono
                     if( user.getTelefono().equals(listaClientes.get(i).getTelefono()) ){
                         //telefono ya existe!
-                        telfDuplicado= true;   
+                        telfDuplicado= true;
                     }
                 }
                 
                 if(!emailDuplicado && !telfDuplicado){
                         iClienteService.registrarCliente(user); // --> INSERT CLIENTE
                         
-                        model.addAttribute("mensaje_registro", "Registro exitoso");
-                        return "cliente/login";
+                        model.addAttribute("valid_reg", "Registro exitoso");
+                       
+                        return "cliente/login"; //usar redirect se pierde el model
                         
-                }else{
-                    //if(telfDuplicado)
-                    model.addAttribute("valid_reg");
-                    //if(emailDuplicado)
-                    model.addAttribute("validacion_email", "Correo ya registrado");
-                    
-                    return "redirect:/cliente/registrarse";
+                }else{ //datos ingresado no validos (error)
+                    if(telfDuplicado){
+                        model.addAttribute("valid_telf", "Celular ya registrado");
+                        //result.rejectValue("correo", "error.cli", "El correo ya está registrado");
+                    }
+                       
+                    if(emailDuplicado)
+                        model.addAttribute("valid_email", "Correo ya registrado");
+
+                    return "registrarse2"; //retornar vista
                 }
 
             }else{
@@ -97,21 +123,21 @@ public class ClienteController {
     }
 
 
-    @RequestMapping("/validar")
+    @PostMapping("/login") // funcion del form
     public String validar(
         @RequestParam("correo") String correo,
-        @RequestParam("clave") String clave, 
+        @RequestParam("clave") String clave,
         Model model){
 
         Boolean b= false;
-
         listaClientes = iClienteService.listarClientes();
         if(listaClientes.size()!=0){
             for(int i=0; i<listaClientes.size(); i++){
+                //buscar cliente
                 if( correo.equals( listaClientes.get(i).getCorreo() ) 
                     && clave.equals( listaClientes.get(i).getClave() ) ) {
-                    //return "intranet";
-                    b = true;
+                    
+                    b = true; //cliente encontrado
                     break;
                 }
             }
@@ -121,11 +147,15 @@ public class ClienteController {
             return "error/error";
         }
         
-        if(b) return "intranet";
-        else {
-            model.addAttribute("errorMessage", "Usuario o clave incorrectas");
-            return "redirect:/cliente/login";
+        if(b) {
+            return "redirect:/intranet"; //usar redirect
         }
+        else {
+            model.addAttribute("errorLogin", "Error Login");
+            return "/cliente/login"; //no usar redirect
+        }
+
+        //return "/";
         
         
        
