@@ -48,7 +48,6 @@ public class ClienteController {
     public String mostrarFormRegistro(
         Cliente cli //creamos objeto cliente para la vista
         ){
-       
         return "/cliente/registrarse"; //ruta html
     }
     
@@ -59,8 +58,6 @@ public class ClienteController {
             Cliente user //recuperamos el objeto user del POST
             ){
 
-            
-            
             Boolean emailDuplicado=false, telfDuplicado=false;
 
             listaClientes = new ArrayList<>(); //inicializar lista
@@ -81,10 +78,12 @@ public class ClienteController {
                 }
                 
                 if(!emailDuplicado && !telfDuplicado){
+                        user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
                         iClienteService.registrarCliente(user); // --> INSERT CLIENTE
                         
+                        //mensaje
                         model.addAttribute("valid_reg", "Registro exitoso");
-                        user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
+                        
                         return "cliente/login"; //usar redirect se pierde el model
                         
                 }else{ //datos ingresado no validos (error)
@@ -96,7 +95,8 @@ public class ClienteController {
                     if(emailDuplicado)
                         model.addAttribute("valid_email", "Correo ya registrado");
 
-                    return "cliente/registrarse"; //retornar vista
+                        model.addAttribute("apellido", apellido);
+                        return "cliente/registrarse"; //retornar vista
                 }
 
             }else{
