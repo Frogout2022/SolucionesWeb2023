@@ -2,8 +2,10 @@ package com.proyecto.t2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.ui.Model;
 import com.proyecto.t2.model.entidad.Cliente;
+import com.proyecto.t2.model.entidad.User;
+
 
 @Controller
 public class MainController {
@@ -34,9 +36,13 @@ public class MainController {
     
 
     @RequestMapping("/intranet")
-    public String dash(){
-        if(Cliente.sesion)
-        return "intranet";
+    public String dash(Model model){
+        if(Cliente.sesion) {
+    
+           String nom = User.user.getNombre();
+            model.addAttribute("nombre", nom);
+            return "intranet";
+        }
         else return "redirect:/cliente/login";
     }
     

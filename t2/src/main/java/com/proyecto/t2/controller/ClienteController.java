@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.t2.model.entidad.Cliente;
+import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IClienteService;
 
 @Controller
@@ -157,7 +158,15 @@ public class ClienteController {
         
         if(b) {
             Cliente.sesion = true;
-            return "redirect:/intranet"; //usar redirect
+            //guardar cliente
+            User user = new User();
+            if(user.saveCliente(listaClientes, cli.getCorreo(), cli.getClave())){
+                return "redirect:/intranet"; //usar redirect
+            }else{
+                model.addAttribute("error", "Error al guardar user");
+                return "redirect:/error/errror";
+            } 
+           
         }
         else {
             model.addAttribute("errorLogin", "Usuario o clave incorrectos");
@@ -167,6 +176,7 @@ public class ClienteController {
         //return "/";
     
     }
+
 
 
     
