@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login2</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form th:action="@{#}" th:object="${usuario}" method="post">
+        <div>
+            <label>Correo electrónico:</label>
+            <input type="text"  th:field="*{Corre}" required/>
+        </div>
+        <div>
+            <label>Contraseña:</label>
+            <input type="text" th:field="*{num}" required/>
+        </div>
+        <div>
+            <button type="submit">Iniciar sesión</button>
+        </div>
+        <div th:if="${error}">
+            <p style="color: red;">Error: <span th:text="${error}"></span></p>
+        </div>
+    </form>
+</body>
+</html>

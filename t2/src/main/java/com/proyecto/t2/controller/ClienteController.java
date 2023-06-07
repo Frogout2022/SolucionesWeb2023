@@ -6,13 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -48,32 +45,21 @@ public class ClienteController {
     }
     
     @GetMapping("/registro") //vista
-    public String mostrarFormRegistro(Model model){
-        //crear cliente para que el html capture los datos y los guarde ahi
-        Cliente cliente = new Cliente();
-        model.addAttribute("cli", cliente);
-        
+    public String mostrarFormRegistro(
+        Cliente cli //creamos objeto cliente para la vista
+        ){
+       
         return "/cliente/registrarse"; //ruta html
     }
-    @GetMapping("/registrar")
-    public String regi(){
-
-        return "registrarse";
-    }
     
-
-    
-    @PostMapping("/registro") //funcion
+    @PostMapping("/registro") //funcion del form
     public String procesarFormRegistro(
             @RequestParam("apellido") String apellido,
             Model model,
-            
-            @ModelAttribute("cli") Cliente user //recuperamos el objeto user del POST
+            Cliente user //recuperamos el objeto user del POST
             ){
 
-               
-
-            user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
+            
             
             Boolean emailDuplicado=false, telfDuplicado=false;
 
@@ -98,7 +84,7 @@ public class ClienteController {
                         iClienteService.registrarCliente(user); // --> INSERT CLIENTE
                         
                         model.addAttribute("valid_reg", "Registro exitoso");
-                       
+                        user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
                         return "cliente/login"; //usar redirect se pierde el model
                         
                 }else{ //datos ingresado no validos (error)
@@ -110,7 +96,7 @@ public class ClienteController {
                     if(emailDuplicado)
                         model.addAttribute("valid_email", "Correo ya registrado");
 
-                    return "registrarse2"; //retornar vista
+                    return "cliente/registrarse"; //retornar vista
                 }
 
             }else{
@@ -119,16 +105,19 @@ public class ClienteController {
                 return "error/error";
             }
 
-      // return "login";
+      //return "cliente/registrarse";
     }
 
 
     @PostMapping("/login") // funcion del form
-    public String validar(
+    public String procesesarFormLogin(
+        @ModelAttribute("cli") Cliente cli,
         @RequestParam("correo") String correo,
         @RequestParam("clave") String clave,
         Model model){
-
+            
+            //cli = new Cliente();
+        //model.addAttribute("cli", cli);
         Boolean b= false;
         listaClientes = iClienteService.listarClientes();
         if(listaClientes.size()!=0){
@@ -151,7 +140,7 @@ public class ClienteController {
             return "redirect:/intranet"; //usar redirect
         }
         else {
-            model.addAttribute("errorLogin", "Error Login");
+            model.addAttribute("errorLogin", "DATOS INCORRECTOS");
             return "/cliente/login"; //no usar redirect
         }
 

@@ -33,12 +33,12 @@
                             <div class="bg-icono text-center"><img th:src="@{/assets/img/favicon2.png}" width="300" height="300"></div>
                             <div class="col-lg-10 col-xl-7 mx-auto">  
 
-                                <form th:action="@{/cliente/login}"  method="post">
+                                <form th:action="@{/cliente/login}" th:object="${clis}" method="post">
                                     <div class="form-group mb-3">
-                                        <input id="usuario" name="correo" type="text" placeholder="Usuario" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" required>
+                                        <input id="usuario"  name="correo" type="text" placeholder="Usuario" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <input id="contra" name="clave" type="password" placeholder="Contraseña"  class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" required>
+                                        <input id="contra"  name="clave" type="password" placeholder="Contraseña"  class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" required>
                                     </div>
                                     <div>
                                         <label>
@@ -54,7 +54,7 @@
                                                 <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Ingresar</button>
                                             </div>
                                             <div class="col-md-6 text-center">
-                                                <a th:href="@{/cliente/registrarse}" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrarse</a>
+                                                <a th:href="@{/cliente/registro}" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrarse</a>
                                             </div>
                                         </div>
                                     </div>
@@ -66,10 +66,10 @@
                                     -->
                                     
                                     <div th:if="${valid_reg}">
-                                        <p th:text="${valid_reg}" style="color: red;"> REGISTRO EXITOS</p>
+                                        <p th:text="${valid_reg}" style="color: red;"> REGISTRO CORRECTO</p>
                                     </div>
                                     <div th:if="${errorLogin}">
-                                        <p th:text="${errorLogin}" style="color: red;"> Errorrrr</p>
+                                        <p th:text="${errorLogin}" style="color: red;"> DATOS INCORRRECT</p>
                                     </div>
                                     
                                 </form>

@@ -36,6 +36,8 @@ public class Cliente {
     @Column(name="distrito")
     private String distrito;
 
+//geters and setter
+
     public Long getId() {
         return id;
     }
