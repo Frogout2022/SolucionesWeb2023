@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import com.proyecto.t2.model.entidad.Cliente;
 import com.proyecto.t2.model.service.IClienteService;
 
@@ -95,23 +94,49 @@ public class ClienteController {
 // #######################----------- LOGIN ------------#################
  
     @GetMapping("/login") //vista
-    public String login(Cliente cli){ 
+    public String login(Cliente cli, Model model){ 
         if(Cliente.sesion){
             return "intranet";
         }else{
+            if(Cliente.recordar){
+                model.addAttribute("usuario",Cliente.usuario);
+                model.addAttribute("contra", Cliente.contra);
+                model.addAttribute("activo", "true");
+            }
+            
+
             return "cliente/login"; //ruta html
         }
         
     }
     @GetMapping("/loginS")
-    public String login2(Cliente cli){
+    public String login2(Cliente cli, Model model){
         Cliente.sesion = false;
+        if(Cliente.recordar){
+            model.addAttribute("usuario",Cliente.usuario);
+            model.addAttribute("contra", Cliente.contra);
+            model.addAttribute("activo", "true");
+        }
+
         return "cliente/login";
     }
 
     @PostMapping("/login") // funcion del form
-    public String procesesarFormLogin(Cliente cli,Model model){
+    public String procesesarFormLogin(
+        @RequestParam(value = "recuerdame", required = false) Boolean recordar,    
+        Cliente cli,
+        Model model
+       
+    ){
         
+        if(recordar!=null && recordar){
+            Cliente.recordar = true;
+            Cliente.usuario = cli.getCorreo();
+            Cliente.contra = cli.getClave();
+        }else{
+            Cliente.recordar = false;
+        }
+
         Boolean b= false;
         listaClientes = iClienteService.listarClientes();
         if(listaClientes.size()!=0){

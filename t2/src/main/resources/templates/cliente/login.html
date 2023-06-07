@@ -15,8 +15,9 @@
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/scripts.js}"></script>
+    
     </head>
-<body>
+<body >
     <div class="container-fluid">
         <div class="row no-gutter">
             <!-- The image half -->
@@ -32,19 +33,37 @@
                         <div class="row">
                             <div class="bg-icono text-center"><img th:src="@{/assets/img/favicon2.png}" width="300" height="300"></div>
                             <div class="col-lg-10 col-xl-7 mx-auto">  
-
+                                
                                 <form th:action="@{/cliente/login}" th:object="${cliente}" method="post">
                                     <div class="form-group mb-3">
-                                        <input id="usuario"  th:field="*{correo}" name="correo" type="text" placeholder="Usuario" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" required>
+                                        <input id="usuario"   th:value="${usuario}" th:field="*{correo}" name="correo" type="text" placeholder="Usuario" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" required>
                                     </div>
+                                   
                                     <div class="form-group mb-3">
-                                        <input id="contra"  th:field="*{clave}" name="clave" type="password" placeholder="Contraseña"  class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" required>
+                                        <input id="contra" th:value="${contra}" th:field="*{clave}" name="clave" type="text" placeholder="Contraseña"  class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" required>
+                                        <p>  </p>
+                                        <button type="button" onclick="togglePasswordVisibility()">Mostrar clave</button>
+                                        <script>
+                                            function togglePasswordVisibility() {
+                                                var passwordInput = document.getElementById("contra");
+                                                if (passwordInput.type === "password") {
+                                                    passwordInput.type = "text";
+                                                } else {
+                                                    passwordInput.type = "password";
+                                                }
+                                            }
+                                            </script>
                                     </div>
+                                    <script>
+                                        // Cambiar el tipo del campo a password
+                                        document.getElementById("contra").type = "password";
+                                    </script>
                                     <div>
                                         <label>
-                                            <input type="checkbox" name="recuerdame"> Recuérdame
+                                            <input th:checked="${activo}" type="checkbox" name="recuerdame" value="true"> Recuerdame
                                         </label>
                                     </div>
+                                    
                                     
 
 
