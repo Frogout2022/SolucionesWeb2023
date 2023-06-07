@@ -46,30 +46,24 @@
     <div class="row g-5 d-flex justify-content-center">
       <div class="col-md-7 col-lg-8">
 
-        <form th:action="@{/cliente/registro}"  th:object="${cli}" onsubmit="return validaciones()" method="post">
+        <form th:action="@{#}"  th:object="${cli}" onsubmit="return validaciones()" method="post">
           <input type="hidden" th:field="*{id}">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">NOMBRES</label>
               <input type="text" class="form-control" th:field="*{nombre}" id="firstName" placeholder="" value="">
-              <div class="invalid-feedback">
-                Valida tu nombre.
-              </div>
+              
             </div>
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">APELLIDOS</label>
               <input type="text" class="form-control" name="apellido" id="lastName" placeholder="" value="">
-              <div class="invalid-feedback">
-                Valida tu apellido.
-              </div>
+              
             </div>
             <div class="col-12">
                 <label for="email" class="form-label">NUMERO DE CELULAR </label>
                 <input  type="number"  class="form-control" th:field="*{telefono}" id="celular" placeholder="987654321">
-                <div class="invalid-feedback">
-                  Ingresa tu numero de celular.
-                </div>
+                
               </div>
               <div th:if="${valid_telf}">
                 <p th:text="${valid_telf}" style="color: red;">TELF DUPLI</p>
@@ -78,9 +72,7 @@
             <div class="col-12">
               <label for="email" class="form-label">EMAIL </label>
               <input  type="email" class="form-control" th:field="*{correo}" id="email" placeholder="tucorreo@ejemplo.com" required>
-              <div class="invalid-feedback">
-                Ingresa tu correo electrónico.
-              </div>
+              
             </div>
             <div th:if="${valid_email}">
               <p th:text="${valid_email}" style="color: red;">EMAIL DUPLI</p>
@@ -89,24 +81,18 @@
             <div class="col-sm-6">
               <label for="clave" class="form-label">CONTRASEÑA</label>
               <input   type="password" class="form-control" th:field="*{clave}" id="clave" placeholder="Ingrese su clave" required>
-              <div class="invalid-feedback">
-                Ingresa tu clave
-              </div>
+              
             </div>
             <div class="col-sm-6">
               <label for="clave2" class="form-label">REPITA SU CONTRASEÑA</label>
               <input type="password" class="form-control" name="clave2" id="clave2" placeholder="Ingrese nuevamente" required>
-              <div class="invalid-feedback">
-                Repita su clave
-              </div>
+              
             </div>
 
             <div class="col-12">
               <label for="address" class="form-label">DIRECCION <span class="text-muted">(OPCIONAL)</span></label>
               <input  type="text" class="form-control" th:field="*{direccion}" id="address" placeholder="Av HermanosHeraso 123">
-              <div class="invalid-feedback">
-                Ingresa tu direccion.
-              </div>
+             
             </div>
             <div class="col-md-5">
               <label for="country" class="form-label">DISTRITO</label>
