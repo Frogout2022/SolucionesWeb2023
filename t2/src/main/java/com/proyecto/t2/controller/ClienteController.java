@@ -31,7 +31,8 @@ public class ClienteController {
     public String mostrarFormRegistro(
         Cliente cli //creamos objeto cliente para la vista
         ){
-        return "/cliente/registrarse"; //ruta html
+        if(Cliente.sesion) return "intranet";
+        else return "/cliente/registrarse"; //ruta html
     }
     
     @PostMapping("/registro") //funcion del form
@@ -95,7 +96,17 @@ public class ClienteController {
  
     @GetMapping("/login") //vista
     public String login(Cliente cli){ 
-        return "cliente/login"; //ruta html
+        if(Cliente.sesion){
+            return "intranet";
+        }else{
+            return "cliente/login"; //ruta html
+        }
+        
+    }
+    @GetMapping("/loginS")
+    public String login2(Cliente cli){
+        Cliente.sesion = false;
+        return "cliente/login";
     }
 
     @PostMapping("/login") // funcion del form
@@ -120,10 +131,11 @@ public class ClienteController {
         }
         
         if(b) {
+            Cliente.sesion = true;
             return "redirect:/intranet"; //usar redirect
         }
         else {
-            model.addAttribute("errorLogin", "DATOS INCORRECTOS");
+            model.addAttribute("errorLogin", "Usuario o clave incorrectos");
             return "/cliente/login"; //no usar redirect
         }
 

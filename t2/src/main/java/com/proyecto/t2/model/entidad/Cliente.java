@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="cliente")
 public class Cliente {
-
+    public static Boolean sesion = false;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
