@@ -20,6 +20,7 @@ INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
 
 
 select * from cliente;
+#use polleria;
 
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
@@ -119,12 +120,12 @@ CREATE TABLE IF NOT EXISTS Compra (
 CREATE TABLE IF NOT EXISTS Trabajador (
     IDTrabajador INT AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(50) NULL,
-    Direccion VARCHAR(50) NULL,
-    Telefono VARCHAR(13) NULL,
-    Usuario VARCHAR(20) NOT NULL,
+    Telefono VARCHAR(13) unique NULL,
+    Usuario VARCHAR(20) unique NOT NULL,
     Clave VARCHAR(15) NOT NULL,
     PRIMARY KEY (IDTrabajador)
 );
+
 
 INSERT INTO TRABAJADOR (nombre, usuario, clave) VALUES
 ('MILHOS SIHUAY BARZOLA','mi_adm@g.com', '12345678'),
