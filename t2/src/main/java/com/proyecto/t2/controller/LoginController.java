@@ -1,5 +1,6 @@
 package com.proyecto.t2.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,102 +12,143 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.t2.model.entidad.Cliente;
+import com.proyecto.t2.model.entidad.Empleado;
 import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IClienteService;
+import com.proyecto.t2.model.service.IEmpleadoService;
+
+import ch.qos.logback.core.pattern.color.BoldBlueCompositeConverter;
 
 @Controller
 @RequestMapping("/cliente")
 public class LoginController {
     
-    
     @Autowired
     private IClienteService iClienteService;
-    
+    @Autowired
+    private IEmpleadoService iEmpleadoService;
+
     private List<Cliente> listaClientes;
-
-
-// #######################----------- LOGIN CLIENTE ------------#################
+    private List<Empleado> listaEmpleados;
  
     @GetMapping("/login") //vista
     public String login(Cliente cli, Model model){ 
-        if(Cliente.sesion){
-            return "intranet";
+        if(User.sesion){
+            if(User.login_cli) return "cliente/extranet";
+            if(User.login_emp) return "intranet";
         }else{
-            if(Cliente.recordar){
-                model.addAttribute("usuario",Cliente.usuario);
-                model.addAttribute("contra", Cliente.contra);
+            if(User.recordar){
+                model.addAttribute("usuario",User.correo);
+                model.addAttribute("contra", User.clave);
                 model.addAttribute("activo", "true");
             }
-            
-
-            return "cliente/login"; //ruta html
+           
         }
-        
+        return "cliente/login"; //ruta html
     }
     @GetMapping("/loginS")
     public String login2(Cliente cli, Model model){
-        Cliente.sesion = false;
-        if(Cliente.recordar){
-            model.addAttribute("usuario",Cliente.usuario);
-            model.addAttribute("contra", Cliente.contra);
+        User.sesion = false; //cerrar sesión
+        if(User.login_cli) User.login_cli = false;
+        if(User.login_emp) User.login_emp = false;
+
+
+        if(User.recordar){
+            model.addAttribute("usuario",User.correo);
+            model.addAttribute("contra", User.clave);
             model.addAttribute("activo", "true");
         }
 
         return "cliente/login";
     }
 
-    @PostMapping("/login") // funcion del form
+    @PostMapping("/login") //   <-- FUNCION DEL FORM DEL HTML
     public String procesesarFormLogin(
         @RequestParam(value = "recuerdame", required = false) Boolean recordar,    
         Cliente cli,
         Model model
        
     ){
-        
         if(recordar!=null && recordar){
-            Cliente.recordar = true;
-            Cliente.usuario = cli.getCorreo();
-            Cliente.contra = cli.getClave();
+            User.recordar = true;
+            User.correo = cli.getCorreo();
+            User.clave = cli.getClave();
         }else{
-            Cliente.recordar = false;
+            User.recordar = false;
         }
 
-        Boolean b= false;
-        listaClientes = iClienteService.listarClientes();
-        if(listaClientes.size()!=0){
-            for(int i=0; i<listaClientes.size(); i++){
-                //buscar cliente
-                if( cli.getCorreo().equals( listaClientes.get(i).getCorreo() ) 
-                    && cli.getClave().equals( listaClientes.get(i).getClave() ) ) {
-                    
-                    b = true; //cliente encontrado
-                    break;
-                }
-            }
-        }else{
-            //bd vacía
-            model.addAttribute("errorMessage","Tabla cliente en Base de datos vacía");
-            return "error/error";
-        }
-        
-        if(b) {
-            Cliente.sesion = true;
-            //guardar cliente
+        if(buscarCli(cli.getCorreo(),cli.getClave())) {//CLIENTE ENCONTRADO
+            //INICIALIZAR LA SESIÓN
+            User.sesion = true; 
+            User.login_cli = true;
+
+            //guardar cliente para luego obtener sus datos
             User user = new User();
             if(user.saveCliente(listaClientes, cli.getCorreo(), cli.getClave())){
-                return "redirect:/intranet"; //usar redirect
+                return "cliente/extranetTest"; //usar redirect
             }else{
                 model.addAttribute("error", "Error al guardar user");
                 return "redirect:/error/errror";
             } 
-           
+        }else {//CLIENTE NO ENCONTRADO
+            //BUSCAR ADMIN
+            if(buscarAdmin(cli.getCorreo(), cli.getClave())){//ADMIN ENCONTRADO
+                //INICIALIZAR LA SESIÓN
+                User.sesion = true; 
+                User.login_emp = true;
+
+                //GUARDAR AL ADMIN
+
+
+                return "redirect:/intranet";
+            }else{
+                model.addAttribute("errorLogin", "Usuario o clave incorrectos");
+                return "/cliente/login"; //no usar redirect
+            }
+            
         }
-        else {
-            model.addAttribute("errorLogin", "Usuario o clave incorrectos");
-            return "/cliente/login"; //no usar redirect
+        //return "/";
+    }
+    private Boolean buscarCli(String correo, String clave){
+        boolean encontrado = false;
+        listaClientes = new ArrayList<>();
+        listaClientes = iClienteService.listarClientes();
+        if(listaClientes.size()!=0){
+            for(Cliente cliente : listaClientes){
+                if(correo.equals(cliente.getCorreo()) && clave.equals(cliente.getClave()) ){
+                    encontrado = true;
+                    break;
+                }
+            }
+        }else{
+            //tabla vacía clientes
+            return false;
         }
 
-        //return "/";
-    
+        return encontrado;
     }
+
+
+    private Boolean buscarAdmin(String usuario, String clave){
+        boolean encontrado=false;
+        listaEmpleados = new ArrayList<>();
+        listaEmpleados = iEmpleadoService.listarEmpleado();
+
+        if(listaEmpleados.size()!=0){
+            for(Empleado empleado : listaEmpleados){
+                if(usuario.equals(empleado.getUsuario())  && clave.equals(empleado.getClave())){
+                    encontrado = true; //empleado encontrado
+                    break;
+                }
+            }
+        }else{
+            //tabla vacía de empleados
+            return false;
+        }
+       
+        return encontrado;
+    }
+
+
+
 }
