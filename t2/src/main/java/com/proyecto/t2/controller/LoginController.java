@@ -32,17 +32,18 @@ public class LoginController {
     @GetMapping("/login") //vista
     public String login(Cliente cli, Model model){ 
         if(User.sesion){
-            if(User.login_cli) return "cliente/extranet";
-            if(User.login_emp) return "intranet";
+            if(User.login_cli) return "redirect:/extranet"; //link
+            if(User.login_emp) return "redirect:/intranet"; //link
         }else{
             if(User.recordar){
                 model.addAttribute("usuario",User.correo);
                 model.addAttribute("contra", User.clave);
                 model.addAttribute("activo", "true");
             }
-           
+           return "cliente/login"; //ruta html
         }
-        return "cliente/login"; //ruta html
+        return "";
+        
     }
     @GetMapping("/loginClose") //cerrar sesión
     public String login2(Cliente cli, Model model){
@@ -97,8 +98,7 @@ public class LoginController {
 
                 //GUARDAR AL ADMIN
 
-
-                return "redirect:/intranet";
+                return "empleado/intranet"; //ruta html
             }else{
                 model.addAttribute("errorLogin", "Usuario o clave incorrectos");
                 return "cliente/login"; //no usar redirect
