@@ -51,14 +51,14 @@ public class LoginController {
         if(User.login_cli) User.login_cli = false;
         if(User.login_emp) User.login_emp = false;
 
-        /* 
+         
         if(User.recordar){
             model.addAttribute("usuario",User.correo);
             model.addAttribute("contra", User.clave);
             model.addAttribute("activo", "true");
-        }*/
+        }
 
-        return "redirect:/login";
+        return "cliente/login";
     }
 
     @PostMapping("/login") //   <-- FUNCION DEL FORM DEL HTML
@@ -68,12 +68,8 @@ public class LoginController {
         Model model
        
     ){
-        if(recordar!=null && recordar){
-            User.recordar = true;
-            User.correo = cli.getCorreo();
-            User.clave = cli.getClave();
-        }else
-            User.recordar = false;
+        
+        
         
 
         if(buscarCli(cli.getCorreo(),cli.getClave())) {//CLIENTE ENCONTRADO
@@ -84,6 +80,16 @@ public class LoginController {
             //guardar cliente para luego obtener sus datos
             User user = new User();
             if(user.saveCliente(listaClientes, cli.getCorreo(), cli.getClave())){
+                //REDIRECCIÓN A LA EXTRANET
+                {
+                    if(recordar!=null && recordar){
+                        User.recordar = true;
+                        User.correo = cli.getCorreo();
+                        User.clave = cli.getClave();
+                    }else User.recordar = false;
+
+                }
+
                 return "redirect:/extranet"; //usar redirect
             }else{
                 model.addAttribute("error", "Error al guardar user");
@@ -97,6 +103,16 @@ public class LoginController {
                 User.login_emp = true;
 
                 //GUARDAR AL ADMIN
+                //--------opcional ------------
+                
+                {
+                    if(recordar!=null && recordar){
+                        User.recordar = true;
+                        User.correo = cli.getCorreo();
+                        User.clave = cli.getClave();
+                    }else User.recordar = false;
+
+                }
 
                 return "empleado/intranet"; //ruta html
             }else{
