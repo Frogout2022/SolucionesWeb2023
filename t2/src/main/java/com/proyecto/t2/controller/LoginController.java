@@ -17,10 +17,8 @@ import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IClienteService;
 import com.proyecto.t2.model.service.IEmpleadoService;
 
-import ch.qos.logback.core.pattern.color.BoldBlueCompositeConverter;
 
 @Controller
-@RequestMapping("/cliente")
 public class LoginController {
     
     @Autowired
@@ -46,20 +44,20 @@ public class LoginController {
         }
         return "cliente/login"; //ruta html
     }
-    @GetMapping("/loginS")
+    @GetMapping("/loginClose") //cerrar sesión
     public String login2(Cliente cli, Model model){
-        User.sesion = false; //cerrar sesión
+        if(User.sesion) User.sesion = false; //cerrar sesión
         if(User.login_cli) User.login_cli = false;
         if(User.login_emp) User.login_emp = false;
 
-
+        /* 
         if(User.recordar){
             model.addAttribute("usuario",User.correo);
             model.addAttribute("contra", User.clave);
             model.addAttribute("activo", "true");
-        }
+        }*/
 
-        return "cliente/login";
+        return "redirect:/login";
     }
 
     @PostMapping("/login") //   <-- FUNCION DEL FORM DEL HTML
@@ -73,9 +71,9 @@ public class LoginController {
             User.recordar = true;
             User.correo = cli.getCorreo();
             User.clave = cli.getClave();
-        }else{
+        }else
             User.recordar = false;
-        }
+        
 
         if(buscarCli(cli.getCorreo(),cli.getClave())) {//CLIENTE ENCONTRADO
             //INICIALIZAR LA SESIÓN
@@ -85,7 +83,7 @@ public class LoginController {
             //guardar cliente para luego obtener sus datos
             User user = new User();
             if(user.saveCliente(listaClientes, cli.getCorreo(), cli.getClave())){
-                return "cliente/extranetTest"; //usar redirect
+                return "redirect:/extranet"; //usar redirect
             }else{
                 model.addAttribute("error", "Error al guardar user");
                 return "redirect:/error/errror";
@@ -103,7 +101,7 @@ public class LoginController {
                 return "redirect:/intranet";
             }else{
                 model.addAttribute("errorLogin", "Usuario o clave incorrectos");
-                return "/cliente/login"; //no usar redirect
+                return "cliente/login"; //no usar redirect
             }
             
         }

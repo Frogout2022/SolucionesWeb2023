@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.t2.model.entidad.Cliente;
+import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IClienteService;
 
 
@@ -31,7 +32,12 @@ public class RegistroController {
     public String mostrarFormRegistro(
         Cliente cli //creamos objeto cliente para la vista
         ){
-        if(Cliente.sesion) return "intranet";
+        if(User.sesion && ( User.login_cli || User.login_emp ) ) {
+            User.sesion = false;
+            User.login_cli = false;
+            User.login_emp = false;
+            return "cliente/registrarse";
+        }
         else return "/cliente/registrarse"; //ruta html
     }
     
@@ -93,9 +99,4 @@ public class RegistroController {
     }
 
 
-
-
-
-
-    
 }

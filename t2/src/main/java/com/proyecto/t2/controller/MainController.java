@@ -42,24 +42,27 @@ public class MainController {
             if(User.login_emp){
                 //String nom = User.user.getNombre();
                 //model.addAttribute("nombre", nom);
-                return "intranet";
+                return "empleado/intranet";
             }
             if(User.login_cli){
-                return "cliente/extranet";
+                return "cliente/extranetTest"; //redirect -> ruta de GetMapping(link) - no redirect -> ubicacion html
             }
           
-        }else return "redirect:/cliente/login";
+        }else return "redirect:/login";
 
         return "";
     }
 
     @GetMapping("/extranet")
     public String extra(Model model){
-        if(User.sesion)
-            if(User.login_emp) return "redirect:/cliente/extranet";
+        if(User.sesion && User.login_cli){
+                return "cliente/extranetTest";
+        }else if(User.sesion && User.login_emp){
+                return "redirect:/intranet";
+        }else{
+                return "redirect:/login";
+        }
         
-        return "redirect:/cliente/login";
-
     }
     
 }
