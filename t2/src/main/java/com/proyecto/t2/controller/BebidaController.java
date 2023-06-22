@@ -10,7 +10,7 @@ import com.proyecto.t2.model.entidad.Bebida;
 import com.proyecto.t2.model.service.IBebidaService;
 
 @Controller
-@RequestMapping("/bebida")
+@RequestMapping("intranet/bebida")
 public class BebidaController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class BebidaController {
     @RequestMapping("/guardar")
     public String guardar(Bebida bebida){
         bebidaService.guardarBebidas(bebida);
-        return "redirect:/bebida/";
+        return "redirect:/intranet/bebida/";
     }
 
     @RequestMapping("/mostrarEditar/{id}")
@@ -42,7 +42,7 @@ public class BebidaController {
     @RequestMapping("/eliminar/{id}")
     public String eliminar(@PathVariable(value = "id") Long id){
         bebidaService.eliminarBebida(id);
-        return "redirect:/bebida/";
+        return "redirect:/intranet/bebida/";
     }
 
 }

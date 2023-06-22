@@ -10,7 +10,7 @@ import com.proyecto.t2.model.entidad.Menu;
 import com.proyecto.t2.model.service.IMenuService;
 
 @Controller
-@RequestMapping("/menu")
+@RequestMapping("intranet/menu")
 public class MenuController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class MenuController {
     @RequestMapping("/guardar")
     public String guardar(Menu menu){
         menuService.guardarMenu(menu);
-        return "redirect:/menu/";
+        return "redirect:/intranet/menu/";
     }
 
     @RequestMapping("/mostrarEditar/{id}")
@@ -42,6 +42,6 @@ public class MenuController {
     @RequestMapping("/eliminar/{id}")
     public String eliminar(@PathVariable(value = "id") Long id){
         menuService.eliminarMenu(id);
-        return "redirect:/menu/";
+        return "redirect:/intranet/menu/";
     }
 }

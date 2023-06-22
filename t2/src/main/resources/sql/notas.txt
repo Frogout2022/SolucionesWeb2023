@@ -1,0 +1,7 @@
+return redirect:/ -> link (llama al controlador)
+return "/cliente/login" -> ruta html
+
+th:href=@{/cliente/cliente2} -> index + ruta cliente
+th:href=@{cliente/cliente2} -> index + ruta actual + cliente
+
+onclick="window.location.href='/intranet/menu/';"
