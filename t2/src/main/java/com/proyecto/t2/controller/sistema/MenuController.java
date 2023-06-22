@@ -1,4 +1,4 @@
-package com.proyecto.t2.controller;
+package com.proyecto.t2.controller.sistema;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class MenuController {
         model.addAttribute("menu", menu);
         model.addAttribute("titulo", "Registrar nuevo menu");
         model.addAttribute("listaMenu", menuService.mostrarMenus());
-        return "menu/inicio";
+        return "sistema/menu";
     }
 
     @RequestMapping("/guardar")
@@ -37,7 +37,7 @@ public class MenuController {
         model.addAttribute("menu", Menu);
         model.addAttribute("titulo", "Modificar menu");
         model.addAttribute("listaMenu", menuService.mostrarMenus());
-        return "menu/inicio"; 
+        return "sistema/menu"; 
     }
     @RequestMapping("/eliminar/{id}")
     public String eliminar(@PathVariable(value = "id") Long id){

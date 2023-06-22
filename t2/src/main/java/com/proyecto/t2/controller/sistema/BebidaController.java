@@ -1,4 +1,4 @@
-package com.proyecto.t2.controller;
+package com.proyecto.t2.controller.sistema;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class BebidaController {
         Bebida bebida=new Bebida();
         model.addAttribute("bebida", bebida);
         model.addAttribute("listaBebida", bebidaService.mostrBebidas());
-        return "bebida/inicio";
+        return "sistema/bebida";
     }
 
     @RequestMapping("/guardar")
@@ -36,7 +36,7 @@ public class BebidaController {
         model.addAttribute("bebida", bebida);
         model.addAttribute("titulo", "Modificar bebida");
         model.addAttribute("listaCategorias",bebidaService.mostrBebidas());
-        return "bebida/inicio"; 
+        return "sistema/bebida"; 
     }
 
     @RequestMapping("/eliminar/{id}")
