@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Bebida;
+import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IBebidaService;
 
 @Controller
@@ -17,10 +18,14 @@ public class BebidaController {
     private IBebidaService bebidaService;
     @RequestMapping("/")
     public String inicio(Model model){
-        Bebida bebida=new Bebida();
-        model.addAttribute("bebida", bebida);
-        model.addAttribute("listaBebida", bebidaService.mostrBebidas());
-        return "sistema/bebida";
+        if(User.sesion && User.login_emp){//validar sesion del admin
+            Bebida bebida=new Bebida();
+            model.addAttribute("bebida", bebida);
+            model.addAttribute("listaBebida", bebidaService.mostrBebidas());
+            return "sistema/bebida";
+        }
+        return "redirect:/login";
+       
     }
 
     @RequestMapping("/guardar")
@@ -31,12 +36,15 @@ public class BebidaController {
 
     @RequestMapping("/mostrarEditar/{id}")
     public String editar(@PathVariable(value = "id") Long id, Model model){
-        Bebida bebida = new Bebida();
-        bebida = bebidaService.buscarBebida(id);
-        model.addAttribute("bebida", bebida);
-        model.addAttribute("titulo", "Modificar bebida");
-        model.addAttribute("listaCategorias",bebidaService.mostrBebidas());
-        return "sistema/bebida"; 
+        if(User.sesion && User.login_emp){//validar sesion del admin
+            Bebida bebida = new Bebida();
+            bebida = bebidaService.buscarBebida(id);
+            model.addAttribute("bebida", bebida);
+            model.addAttribute("titulo", "Modificar bebida");
+            model.addAttribute("listaCategorias",bebidaService.mostrBebidas());
+            return "sistema/bebida"; 
+        }
+        return "redirect:/login";
     }
 
     @RequestMapping("/eliminar/{id}")

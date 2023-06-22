@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Menu;
+import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IMenuService;
 
 @Controller
@@ -17,11 +18,15 @@ public class MenuController {
     private IMenuService menuService;
     @RequestMapping("/")
     public String inicio(Model model){
-        Menu menu=new Menu();
-        model.addAttribute("menu", menu);
-        model.addAttribute("titulo", "Registrar nuevo menu");
-        model.addAttribute("listaMenu", menuService.mostrarMenus());
-        return "sistema/menu";
+        if(User.sesion && User.login_emp){//validar sesion del admin
+            Menu menu=new Menu();
+            model.addAttribute("menu", menu);
+            model.addAttribute("titulo", "Registrar nuevo menu");
+            model.addAttribute("listaMenu", menuService.mostrarMenus());
+            return "sistema/menu";
+        }
+        return "redirect:/login";
+        
     }
 
     @RequestMapping("/guardar")
@@ -32,12 +37,17 @@ public class MenuController {
 
     @RequestMapping("/mostrarEditar/{id}")
     public String editar(@PathVariable(value = "id") Long id, Model model){
-        Menu Menu = new Menu();
-        Menu = menuService.buscarMenu(id);
-        model.addAttribute("menu", Menu);
-        model.addAttribute("titulo", "Modificar menu");
-        model.addAttribute("listaMenu", menuService.mostrarMenus());
-        return "sistema/menu"; 
+        if(User.sesion && User.login_emp){ //validar la sesion del admin
+            Menu Menu = new Menu();
+            Menu = menuService.buscarMenu(id);
+            model.addAttribute("menu", Menu);
+            model.addAttribute("titulo", "Modificar menu");
+            model.addAttribute("listaMenu", menuService.mostrarMenus());
+            return "sistema/menu"; 
+        }
+        return "redirect:/login";
+
+        
     }
     @RequestMapping("/eliminar/{id}")
     public String eliminar(@PathVariable(value = "id") Long id){
