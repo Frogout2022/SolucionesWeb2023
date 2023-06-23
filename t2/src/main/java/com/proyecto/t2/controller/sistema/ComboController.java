@@ -3,7 +3,6 @@ package com.proyecto.t2.controller.sistema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.service.sistema.IPolloService;
@@ -12,10 +11,10 @@ import com.proyecto.t2.model.service.IBebidaService;
 import com.proyecto.t2.model.service.IMenuService;
 import com.proyecto.t2.model.service.sistema.IComboService;
 import com.proyecto.t2.model.service.sistema.IPiqueoService;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -61,7 +60,23 @@ public class ComboController {
         comboService.guardarCombos(combo);
         return "redirect:/intranet/combo/";
     }
-    
+
+    @RequestMapping("/mostrarEditar/{id}")
+    public String editar(@PathVariable(value = "id") Long id, Model model){
+        Combo combo = new Combo();
+        
+        combo = comboService.buscarCombo(id);
+        model.addAttribute("combo", combo);
+        model.addAttribute("titulo", "Modificar combo");
+        model.addAttribute("listaCombos", comboService.mostrarCombos());
+        return "sistema/combo"; 
+    }
+
+    @RequestMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable(value = "id") Long id){
+        comboService.eliminarCombo(id);
+        return "redirect:/intranet/combo/";
+    }
 
 
 }
