@@ -34,31 +34,31 @@
                                 <div class="col-md-6 mb-3" >
                                     <label>BEBIDA: </label>
                                     <select class="form-select" th:field="*{bebida.id}">
-                                        <option value="">Selecciona una opción: </option>
+                                        <option th:value="${null}">Selecciona una bebida: </option>
                                         <option th:each="item: ${listaBebidas}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
                                     <label>MENU: </label>
-                                    <select class="form-select" field="">
-                                        <option>Selecciona una opción: </option>
+                                    <select class="form-select" th:field="*{menu.id}">
+                                        <option th:value="${null}">Selecciona una opción: </option>
                                         <option th:each="item: ${listaMenu}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
                                     <label>POLLO: </label>
-                                    <select class="form-select">
-                                        <option>Selecciona una opción: </option>
+                                    <select class="form-select" th:field="*{pollo.id}">
+                                        <option th:value="${null}">Selecciona una opción: </option>
                                         <<option th:each="item: ${listaPollo}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
                                     <label>PIQUEO: </label>
-                                    <select class="form-select">
-                                        <option>Selecciona una opción: </option>
+                                    <select class="form-select" th:field="*{piqueo.id}">
+                                        <option th:value="${null}">Selecciona una opción: </option>
                                         <option th:each="item: ${listaPiqueo}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
@@ -71,7 +71,7 @@
                                         <i class="fa-solid fa-floppy-disk"></i>
                                             GUARDAR COMBO
                                     </button>
-                                    <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/menu/';">
+                                    <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/combo/';">
                                         <i  class="fa-solid fa-floppy-disk"></i>
                                             CREAR NUEVO COMBO
                                     </button>

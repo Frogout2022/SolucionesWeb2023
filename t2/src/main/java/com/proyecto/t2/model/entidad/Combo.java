@@ -1,7 +1,5 @@
 package com.proyecto.t2.model.entidad;
 
-import org.springframework.objenesis.instantiator.perc.PercInstantiator;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -12,6 +12,12 @@ import com.proyecto.t2.model.service.IBebidaService;
 import com.proyecto.t2.model.service.IMenuService;
 import com.proyecto.t2.model.service.sistema.IComboService;
 import com.proyecto.t2.model.service.sistema.IPiqueoService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 
 @Controller
@@ -42,4 +48,20 @@ public class ComboController {
         model.addAttribute("listaCombo", comboService.mostrarCombos());
         return "sistema/combo";
     }
+
+    @PostMapping("/guardar")
+    public String guardar(Combo combo) {
+        if(combo.getBebida().getId()== null) combo.setBebida(null);
+        if(combo.getMenu().getId()== null) combo.setMenu(null);
+        if(combo.getPiqueo().getId()== null) combo.setPiqueo(null);
+        if(combo.getPollo().getId()== null) combo.setPollo(null);
+
+        
+        
+        comboService.guardarCombos(combo);
+        return "redirect:/intranet/combo/";
+    }
+    
+
+
 }
