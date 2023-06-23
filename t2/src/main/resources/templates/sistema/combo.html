@@ -32,7 +32,7 @@
                                 </div>
                                 
                                 <div class="col-md-6 mb-3" >
-                                    <label>BEBIDA: </label>
+                                    <label>BEBIDA: <span style="color: gray">(opcional)</span></label>
                                     <select class="form-select" th:field="*{bebida.id}">
                                         <option th:value="${null}">Selecciona una bebida: </option>
                                         <option th:each="item: ${listaBebidas}" th:value="${item.id}" th:text="${item.nombre}"> </option>
@@ -40,7 +40,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
-                                    <label>MENU: </label>
+                                    <label>MENU: <span style="color: gray">(opcional)</span></label>
                                     <select class="form-select" th:field="*{menu.id}">
                                         <option th:value="${null}">Selecciona una opción: </option>
                                         <option th:each="item: ${listaMenu}" th:value="${item.id}" th:text="${item.nombre}"> </option>
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
-                                    <label>POLLO: </label>
+                                    <label>POLLO: <span style="color: gray">(opcional)</span></label>
                                     <select class="form-select" th:field="*{pollo.id}">
                                         <option th:value="${null}">Selecciona una opción: </option>
                                         <<option th:each="item: ${listaPollo}" th:value="${item.id}" th:text="${item.nombre}"> </option>
@@ -56,7 +56,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
-                                    <label>PIQUEO: </label>
+                                    <label>PIQUEO: <span style="color: gray">(opcional)</span></label>
                                     <select class="form-select" th:field="*{piqueo.id}">
                                         <option th:value="${null}">Selecciona una opción: </option>
                                         <option th:each="item: ${listaPiqueo}" th:value="${item.id}" th:text="${item.nombre}"> </option>
@@ -124,7 +124,7 @@
                                 </div><div th:unless="${item.pollo != null}"><td>NO</td></div>
                                 
                                 <td  class="text-center">
-                                    <a href="#" onclick="mostrarModalEditar()" class="btn btn-warning"
+                                    <a href="#" class="btn btn-warning editarCombo"
                                     th:data-id="${item.id}"
                                     th:data-nombre="${item.nombre}"
                                     th:data-precio="${item.precio}"
@@ -167,28 +167,56 @@
                     <div class="modal-body">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="row">
-                            <div class="col-12 mb-3">
-                                <label>Menu:</label>
-                                <select class="form-select" name="menu.id" id="cboCategoria">
-                                    <option value="">Seleccione una opción:</option>
+                            <div class="col-md-6 mb-3">
+                                <label title="OPCIONAL">MENU: <span style="color: gray">(opcional)</span> </label>
+                                <select class="form-select" name="menu.id" id="cboMenu">
+                                    <option th:value="${null}">Seleccione una opción:</option>
                                     <option th:each="item: ${listaMenu}" th:value="${item.id}" th:text="${item.nombre}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>BEBIDA: <span style="color: gray">(opcional)</span></label>
+                                <select class="form-select" name="bebida.id" id="cboBebida">
+                                    <option th:value="${null}">Seleccione una opción:</option>
+                                    <option th:each="item: ${listaBebidas}" th:value="${item.id}" th:text="${item.nombre}"></option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-12 mb-3">
-                                <label>Nombre del combo:</label>
-                                <input type="text" name="nombre" id="txtNombre" class="form-control"/>
+                            <div class="col-md-6 mb-3">
+                                <label>PIQUEO: <span style="color: gray">(opcional)</span></label>
+                                <select class="form-select" name="piqueo.id" id="cboPiqueo">
+                                    <option th:value="${null}">Seleccione una opción:</option>
+                                    <option th:each="item: ${listaPiqueo}" th:value="${item.id}" th:text="${item.nombre}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>POLLO: <span style="color: gray">(opcional)</span></label>
+                                <select class="form-select" name="pollo.id" id="cboPollo">
+                                    <option th:value="${null}">Seleccione una opción:</option>
+                                    <option th:each="item: ${listaPollo}" th:value="${item.id}" th:text="${item.nombre}"></option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-12 mb-3">
-                                <label>Precio del producto:</label>
-                                <input type="text" name="precio" id="txtPrecio" class="form-control"/>
+                            <div class="col-4 mb-3">
+                                <label>NOMBRE:</label>
+                                <input type="text" name="nombre" id="txtNombre" class="form-control" required/>
                             </div>
+                            <div class="col-4 mb-3">
+                                <label>PRECIO:</label>
+                                <input type="text" name="precio" id="txtPrecio" class="form-control" required/>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <label>STOCK:</label>
+                                <input type="text" name="stock" id="txtStock" class="form-control" required/>
+                            </div>
+
                         </div>
+
+                        
                     </div>
 
                     <div class="modal-footer">
@@ -209,14 +237,15 @@
 
     <script>
         function mostrarModalEditar() {
+
+
             new bootstrap.Modal(document.getElementById('modalEditar')).show();
             //$('#modalEditar').modal('show');
         }
     </script>
-    
-
+    <script src="/js/scriptCombo.js"></script>
 
     <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
-    <!--<script type="text/javascript" th:src="@{/js/scriptCombo.js}"></script> -->
+     
 </body>
 </html>
