@@ -11,22 +11,22 @@ import com.proyecto.t2.model.entidad.User;
 public class MainController {
     @RequestMapping("/")
     public String inicio(){
-        return "index";
+        return "publico/index";
     }
 
-    @RequestMapping("/about")
+    @RequestMapping("/platillos")
     public String about(){
-        return "about";
+        return "publico/platillos";
     }
 
-    @RequestMapping("/products")
+    @RequestMapping("/combos")
     public String products(){
-        return "products";
+        return "publico/combos";
     }
 
-    @RequestMapping("/store")
+    @RequestMapping("/ubicanos")
     public String store(){
-        return "store";
+        return "publico/ubicanos";
     }
 
     @RequestMapping("/error_html")

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:replace="layouts/plantilla::cabecera"></head>
+    <body>
+        <header th:replace="layouts/plantilla::titulo"></header>
+        <!-- Navigation-->
+        <nav th:replace="layouts/plantilla::opciones"></nav>
+        <section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner bg-faded text-center rounded">
+                            <h2 class="section-heading mb-5">
+                                <span class="section-heading-upper">VISITANOS EN NUESTROS HORARIOS DE atención</span>
+                                
+                            </h2>
+                            <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Domingo
+                                    <span class="ms-auto">12:30 PM - 12:00 AM</span>
+                                </li>
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Lunes
+                                    <span class="ms-auto">12:30 PM - 11:30 PM</span>
+                                </li>
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Martes
+                                    <span class="ms-auto">12:30 PM - 11:00 PM</span>
+                                </li>
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Miércoles
+                                    <span class="ms-auto">12:30 PM - 11:00 PM</span>
+                                </li>
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Jueves
+                                    <span class="ms-auto">12:30 PM - 11:30 PM</span>
+                                </li>
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Viernes
+                                    <span class="ms-auto">12:30 PM - 11:30 PM</span>
+                                </li>
+                                <li class="list-unstyled-item list-hours-item d-flex">
+                                    Sábado
+                                    <span class="ms-auto">12:30 PM - 12:00 AM</span>
+                                </li>
+                            </ul>
+                            <p class="address mb-5">
+                                <em>
+                                    <strong>¿Donde encontrarnos? </strong>
+                                    <br />
+                                    Av. República de Venezuela 1669 - Breña
+                                </em>
+                            </p>
+                            <p class="mb-0">
+                                <small><em>DELIVERY</em></small>
+                                <br />
+                                952 662 457 / (01) 279 8834
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section about-heading">
+            <div class="container">
+                <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" th:src="@{/assets/img/about_1.jpg}" alt="..." />
+                <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                                <h2 class="section-heading mb-4">
+                                    <span class="section-heading-upper">ACERCA DE LA POLLERIA</span>
+                                    
+                                </h2>
+                                <p></p>
+                                <p class="mb-0">
+                                    ¡Garantizamos su sabor de calidad
+                                    <em>! ,</em>
+                                    Aventurate a pasar un momento innolvidable
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div th:replace="layouts/plantilla::pie"></div> 
+    </body>
+</html>
