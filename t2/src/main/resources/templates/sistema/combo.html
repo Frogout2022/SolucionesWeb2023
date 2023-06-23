@@ -19,16 +19,16 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label>NOMBRE: </label>
-                                    <input  th:field="*{nombre}" type="text" class="form-control" placeholder="Ingrese el nombre"/>
+                                    <input th:field="*{nombre}" type="text" class="form-control" placeholder="Ingrese el nombre" required/>
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label>PRECIO: </label>
-                                    <input  th:field="*{precio}" type="number" class="form-control" placeholder="Ingrese el precio"/>
+                                    <input  th:field="*{precio}" type="number" step="0.5" class="form-control" placeholder="Ingrese el precio" required/>
                                 </div>
                                 <div class="col-md-6 mb-3" >
                                     <label>STOCK: </label>
-                                    <input  th:field="*{stock}" type="number" class="form-control" placeholder="Ingrese el stock"/>
+                                    <input  th:field="*{stock}" type="number" class="form-control" placeholder="Ingrese el stock" required/>
                                 </div>
                                 
                                 <div class="col-md-6 mb-3" >
@@ -66,16 +66,16 @@
                                 
                             </div> 
                                 <div class="row mt-3">
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fa-solid fa-floppy-disk"></i>
-                                            GUARDAR COMBO
-                                    </button>
-                                    <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/combo/';">
-                                        <i  class="fa-solid fa-floppy-disk"></i>
-                                            CREAR NUEVO COMBO
-                                    </button>
-                                </div>
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa-solid fa-floppy-disk"></i>
+                                                GUARDAR COMBO
+                                        </button>
+                                        <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/combo/';">
+                                            <i  class="fa-solid fa-floppy-disk"></i>
+                                                CREAR NUEVO COMBO
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                 <th>MENU</th>
                                 <th>PIQUEO</th>
                                 <th>POLLO</th>
-                                <th>Opciones</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -116,23 +116,29 @@
                                 <div th:if="${item.menu != null}"><td th:text="${item.menu.nombre}"></td>
                                 </div><div th:unless="${item.menu != null}"><td>NO</td></div>
 
-                                
-
-                                
+                                                                
                                 <div th:if="${item.piqueo != null}"><td th:text="${item.piqueo.nombre}"></td>
                                 </div><div th:unless="${item.piqueo != null}"><td>NO</td></div>
-                                
-                                
-
-                                
+                                                                                             
                                 <div th:if="${item.pollo != null}"><td th:text="${item.pollo.nombre}"></td>
                                 </div><div th:unless="${item.pollo != null}"><td>NO</td></div>
                                 
-
-
-                                <td>
-                                    <a th:href="@{mostrarEditar/} + ${item.id}" class="btn btn-warning">
-                                        <i class="fa-solid fa-pen-to-square"></i> Editar </a> |
+                                <td  class="text-center">
+                                    <a href="#" onclick="mostrarModalEditar()" class="btn btn-warning"
+                                    th:data-id="${item.id}"
+                                    th:data-nombre="${item.nombre}"
+                                    th:data-precio="${item.precio}"
+                                    th:data-stock="${item.stock}"
+                                    th:data-menu="${item.menu == null ? item.menu : item.menu.id}"
+                                    th:data-bebida="${item.bebida == null ? item.bebida : item.bebida.id}"
+                                    th:data-piqueo="${item.piqueo == null ? item.piqueo : item.piqueo.id}"
+                                    th:data-pollo="${item.pollo == null ? item.pollo : item.pollo.id}"                           
+                                    >
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar 
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    
                                     <a th:href="@{eliminar/} + ${item.id}" class="btn btn-danger"
                                     onclick="return confirm('¿Desea eliminar el combo?')">
                                         <i class="fa-solid fa-trash-can"></i> Eliminar
@@ -146,7 +152,71 @@
                         </div>
         </div>
     </div>
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Combo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form th:action="@{#}" th:object="${combo}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label>Menu:</label>
+                                <select class="form-select" name="menu.id" id="cboCategoria">
+                                    <option value="">Seleccione una opción:</option>
+                                    <option th:each="item: ${listaMenu}" th:value="${item.id}" th:text="${item.nombre}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label>Nombre del combo:</label>
+                                <input type="text" name="nombre" id="txtNombre" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label>Precio del producto:</label>
+                                <input type="text" name="precio" id="txtPrecio" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        
+
+    </div>
+
+    <script>
+        function mostrarModalEditar() {
+            new bootstrap.Modal(document.getElementById('modalEditar')).show();
+            //$('#modalEditar').modal('show');
+        }
+    </script>
+    
+
+
     <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
-    <script th:src="@{/js/LibreriaMenu.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/scriptCombo.js}"></script> -->
 </body>
 </html>
