@@ -1,45 +1,34 @@
 package com.proyecto.t2.model.entidad;
 
-import org.springframework.objenesis.instantiator.perc.PercInstantiator;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="combo")
-public class Combo {
+@Table(name="piqueo")
+public class Piqueo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDcombo")
+    @Column(name = "idpiqueo")
     private Long id;
     @Column(name = "Nombre")
     private String nombre;
-    @Column(name = "Precio")
+
+    @Column(name="tipo")
+    private String Tipo;
+
+    @Column(name = "precio")
     private Double precio;
+
+    @Column(name="porcion")
+    private String porcion;
     @Column(name = "Stock")
     private int stock;
 
-    
 
-    @ManyToOne
-    @JoinColumn(name= "idbebida")
-    private Bebida bebida;
-
-    @ManyToOne
-    @JoinColumn(name= "idmenu")
-    private Menu menu;
-
-    @ManyToOne
-    @JoinColumn(name="idpiqueo")
-    private Piqueo piqueo;
-    
-    
     public Long getId() {
         return id;
     }
@@ -52,11 +41,23 @@ public class Combo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    public String getTipo() {
+        return Tipo;
+    }
+    public void setTipo(String tipo) {
+        Tipo = tipo;
+    }
     public Double getPrecio() {
         return precio;
     }
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+    public String getPorcion() {
+        return porcion;
+    }
+    public void setPorcion(String porcion) {
+        this.porcion = porcion;
     }
     public int getStock() {
         return stock;
@@ -64,26 +65,5 @@ public class Combo {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    
-    
-    public Bebida getBebida() {
-        return bebida;
-    }
-    public void setBebida(Bebida bebida) {
-        this.bebida = bebida;
-    }
-    public Menu getMenu() {
-        return menu;
-    }
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-    public Piqueo getPiqueo() {
-        return piqueo;
-    }
-    public void setPiqueo(Piqueo piqueo) {
-        this.piqueo = piqueo;
-    }
-
 
 }

@@ -100,6 +100,9 @@
                                 <th>Precio</th>
                                 <th>Stock</th>
                                 <th>BEBIDA</th>
+                                <th>MENU</th>
+                                <th>PIQUEO</th>
+                                <th>POLLO</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -113,7 +116,25 @@
                                 <!--<td th:text="${item.bebida == null ? item.bebida : item.bebida.nombre}">no</td> -->
                                 <div th:if="${item.bebida != null}"><td th:text="${item.bebida.nombre}"></td>
                                 </div><div th:unless="${item.bebida != null}"><td>NO</td></div>
-                            
+                                
+                                <div th:if="${item.menu != null}"><td th:text="${item.menu.nombre}"></td>
+                                </div><div th:unless="${item.menu != null}"><td>NO</td></div>
+
+                                
+
+                                
+                                <div th:if="${item.piqueo != null}"><td th:text="${item.piqueo.nombre}"></td>
+                                </div><div th:unless="${item.piqueo != null}"><td>NO</td></div>
+                                
+                                
+
+                                <!--
+                                <div th:if="${item.pollo != null}"><td th:text="${item.pollo.nombre}"></td>
+                                </div><div th:unless="${item.pollo != null}"><td>NO</td></div>
+                                -->
+                                <td> pollo </td>
+
+
                                 <td>
                                     <a th:href="@{mostrarEditar/} + ${item.id}" class="btn btn-warning">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar </a> |
