@@ -94,21 +94,26 @@
                     <table class="table table-striped table-bordered">
                         <thead class="table table-dark">
                             <tr>
-                                <th>IdMenu</th>
+                                <th>IdCombo</th>
                                 <th>Nombre</th>
-                                <th>Tipo</th>
+                                
                                 <th>Precio</th>
                                 <th>Stock</th>
+                                <th>BEBIDA</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="item: ${listaMenu}">
+                            <tr th:each="item: ${listaCombo}">
                                 <td th:text="${item.id}"></td>
                                 <td th:text="${item.nombre}"></td>
-                                <td th:text="${item.tipo}"></td>
+                                
                                 <td th:text="${item.precio}"></td>
                                 <td th:text="${item.stock}"></td>
+                                <!--<td th:text="${item.bebida == null ? item.bebida : item.bebida.nombre}">no</td> -->
+                                <div th:if="${item.bebida != null}"><td th:text="${item.bebida.nombre}"></td>
+                                </div><div th:unless="${item.bebida != null}"><td>NO</td></div>
+                            
                                 <td>
                                     <a th:href="@{mostrarEditar/} + ${item.id}" class="btn btn-warning">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar </a> |
