@@ -12,31 +12,31 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">COMBO</h1>
                     </div>
-                    <form th:action="@{/intranet/combo/guardar}"  method="post">
+                    <form th:action="@{/intranet/combo/guardar}" th:object="${combo}" method="post">
                         <div class="card-body">
                             <input type="hidden" >
                             <div class="row">
 
                                 <div class="col-md-6 mb-3">
-                                        <label>NOMBRE: </label>
-                                        <input  type="text" class="form-control" placeholder="Ingrese el nombre"/>
+                                    <label>NOMBRE: </label>
+                                    <input  th:field="*{nombre}" type="text" class="form-control" placeholder="Ingrese el nombre"/>
                                 </div>
                                 
-                                <div class="col-md-6 mb-3" >
+                                <div class="col-md-6 mb-3">
                                     <label>PRECIO: </label>
-                                    <input  type="text" class="form-control" placeholder="Ingrese el precio"/>
+                                    <input  th:field="*{precio}" type="number" class="form-control" placeholder="Ingrese el precio"/>
                                 </div>
                                 <div class="col-md-6 mb-3" >
                                     <label>STOCK: </label>
-                                    <input  type="text" class="form-control" placeholder="Ingrese el stock"/>
+                                    <input  th:field="*{stock}" type="number" class="form-control" placeholder="Ingrese el stock"/>
                                 </div>
                                 
                                 <div class="col-md-6 mb-3" >
                                     <label>BEBIDA: </label>
-                                    <select class="form-select">
+                                    <select class="form-select" th:field="*{bebida.id}">
         
                                         <option value="">Selecciona una opción: </option>
-                                        <option value="">Opcion2 </option>
+                                        <option th:each="item: ${listaBebidas}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
 

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,14 +22,19 @@ public class Combo {
     @Column(name = "Stock")
     private int stock;
 
-    @Column(name="idbebida")
-    private Integer id_bebida;
+    
     @Column(name="idmenu")
     private Integer id_menu;
     @Column(name="idpollo")
     private Integer id_pollo;
     @Column(name="idpiqueo")
     private Integer id_piqueo;
+
+    
+    @JoinColumn(name= "idbebida")
+    private Bebida bebida;
+
+    
 
     
     public Long getId() {
@@ -55,12 +61,7 @@ public class Combo {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    public Integer getId_bebida() {
-        return id_bebida;
-    }
-    public void setId_bebida(Integer id_bebida) {
-        this.id_bebida = id_bebida;
-    }
+    
     public Integer getId_menu() {
         return id_menu;
     }
@@ -78,6 +79,12 @@ public class Combo {
     }
     public void setId_piqueo(Integer id_piqueo) {
         this.id_piqueo = id_piqueo;
+    }
+    public Bebida getBebida() {
+        return bebida;
+    }
+    public void setBebida(Bebida bebida) {
+        this.bebida = bebida;
     }
 
     
