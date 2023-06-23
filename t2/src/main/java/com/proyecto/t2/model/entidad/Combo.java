@@ -25,7 +25,6 @@ public class Combo {
     @Column(name = "Stock")
     private int stock;
 
-    
 
     @ManyToOne
     @JoinColumn(name= "idbebida")
@@ -38,6 +37,12 @@ public class Combo {
     @ManyToOne
     @JoinColumn(name="idpiqueo")
     private Piqueo piqueo;
+
+    @ManyToOne
+    @JoinColumn(name="idpollo")
+    private Pollo pollo;
+
+    
     
     
     public Long getId() {
@@ -83,6 +88,12 @@ public class Combo {
     }
     public void setPiqueo(Piqueo piqueo) {
         this.piqueo = piqueo;
+    }
+    public Pollo getPollo() {
+        return pollo;
+    }
+    public void setPollo(Pollo pollo) {
+        this.pollo = pollo;
     }
 
 

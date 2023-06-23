@@ -34,7 +34,6 @@
                                 <div class="col-md-6 mb-3" >
                                     <label>BEBIDA: </label>
                                     <select class="form-select" th:field="*{bebida.id}">
-        
                                         <option value="">Selecciona una opción: </option>
                                         <option th:each="item: ${listaBebidas}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
@@ -43,27 +42,24 @@
                                 <div class="col-md-6 mb-3" >
                                     <label>MENU: </label>
                                     <select class="form-select" field="">
-        
                                         <option>Selecciona una opción: </option>
-                                        <option>Opcion2 </option>
+                                        <option th:each="item: ${listaMenu}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
                                     <label>POLLO: </label>
                                     <select class="form-select">
-        
                                         <option>Selecciona una opción: </option>
-                                        <option>Opcion2 </option>
+                                        <<option th:each="item: ${listaPollo}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 mb-3" >
                                     <label>PIQUEO: </label>
                                     <select class="form-select">
-        
                                         <option>Selecciona una opción: </option>
-                                        <option>Opcion2 </option>
+                                        <option th:each="item: ${listaPiqueo}" th:value="${item.id}" th:text="${item.nombre}"> </option>
                                     </select>
                                 </div>
                                 
@@ -128,11 +124,10 @@
                                 
                                 
 
-                                <!--
+                                
                                 <div th:if="${item.pollo != null}"><td th:text="${item.pollo.nombre}"></td>
                                 </div><div th:unless="${item.pollo != null}"><td>NO</td></div>
-                                -->
-                                <td> pollo </td>
+                                
 
 
                                 <td>
