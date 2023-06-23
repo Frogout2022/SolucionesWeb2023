@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/plantilla_intranet::cabezaintranet"></head>
+<body id="page-top">
+    <div id="wrapper"> 
+        <ul th:replace="layouts/plantilla_intranet::contenidoizquierdo"></ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="layouts/plantilla_intranet::contenidoarriba"></nav>
+        <!-- CONTENIDO -->
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">COMBO</h1>
+                    </div>
+                    <form th:action="@{/intranet/combo/guardar}"  method="post">
+                        <div class="card-body">
+                            <input type="hidden" >
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                        <label>NOMBRE: </label>
+                                        <input  type="text" class="form-control" placeholder="Ingrese el nombre"/>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3" >
+                                    <label>PRECIO: </label>
+                                    <input  type="text" class="form-control" placeholder="Ingrese el precio"/>
+                                </div>
+                                <div class="col-md-6 mb-3" >
+                                    <label>STOCK: </label>
+                                    <input  type="text" class="form-control" placeholder="Ingrese el stock"/>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3" >
+                                    <label>BEBIDA: </label>
+                                    <select class="form-select">
+        
+                                        <option value="">Selecciona una opción: </option>
+                                        <option value="">Opcion2 </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3" >
+                                    <label>MENU: </label>
+                                    <select class="form-select" field="">
+        
+                                        <option>Selecciona una opción: </option>
+                                        <option>Opcion2 </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3" >
+                                    <label>POLLO: </label>
+                                    <select class="form-select">
+        
+                                        <option>Selecciona una opción: </option>
+                                        <option>Opcion2 </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3" >
+                                    <label>PIQUEO: </label>
+                                    <select class="form-select">
+        
+                                        <option>Selecciona una opción: </option>
+                                        <option>Opcion2 </option>
+                                    </select>
+                                </div>
+                                
+                                
+                            </div> 
+                                <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                            GUARDAR COMBO
+                                    </button>
+                                    <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/menu/';">
+                                        <i  class="fa-solid fa-floppy-disk"></i>
+                                            CREAR NUEVO COMBO
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                </div>
+                        <div class="card ">
+                            <div class="card-header">
+                                Combos Registrados
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table table-dark">
+                            <tr>
+                                <th>IdMenu</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item: ${listaMenu}">
+                                <td th:text="${item.id}"></td>
+                                <td th:text="${item.nombre}"></td>
+                                <td th:text="${item.tipo}"></td>
+                                <td th:text="${item.precio}"></td>
+                                <td th:text="${item.stock}"></td>
+                                <td>
+                                    <a th:href="@{mostrarEditar/} + ${item.id}" class="btn btn-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar </a> |
+                                    <a th:href="@{eliminar/} + ${item.id}" class="btn btn-danger"
+                                    onclick="return confirm('¿Desea eliminar el combo?')">
+                                        <i class="fa-solid fa-trash-can"></i> Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+    </div>
+    <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
+    <script th:src="@{/js/LibreriaMenu.js}"></script>
+</body>
+</html>
