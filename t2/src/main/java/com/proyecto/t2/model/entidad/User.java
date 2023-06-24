@@ -20,6 +20,15 @@ public class User {
     public static String clave = "";
     public static boolean recordar = false;
 
+    public static boolean validar_admin(){
+        if(sesion && login_emp) return true;
+        return false;
+    }
+    public static boolean validar_cli(){
+        if(sesion && login_cli) return true;
+        return false;
+    }
+
     
     public  boolean saveCliente(List<Cliente> listaClientes, String correo, String clave){
         Boolean guardado = false;
