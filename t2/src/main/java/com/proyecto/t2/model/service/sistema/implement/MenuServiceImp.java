@@ -1,4 +1,4 @@
-package com.proyecto.t2.controller;
+package com.proyecto.t2.model.service.sistema.implement;
 
 
 import java.util.List;
