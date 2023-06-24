@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Menu;
 import com.proyecto.t2.model.entidad.User;
-import com.proyecto.t2.model.service.IMenuService;
+import com.proyecto.t2.model.service.sistema.interfaces.IMenuService;
 
 @Controller
 @RequestMapping("intranet/menu")

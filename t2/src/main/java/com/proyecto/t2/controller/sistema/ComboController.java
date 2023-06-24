@@ -6,12 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.proyecto.t2.model.service.sistema.IPolloService;
+import com.proyecto.t2.model.service.sistema.interfaces.IBebidaService;
+import com.proyecto.t2.model.service.sistema.interfaces.IComboService;
+import com.proyecto.t2.model.service.sistema.interfaces.IMenuService;
+import com.proyecto.t2.model.service.sistema.interfaces.IPiqueoService;
+import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 import com.proyecto.t2.model.entidad.Combo;
-import com.proyecto.t2.model.service.IBebidaService;
-import com.proyecto.t2.model.service.IMenuService;
-import com.proyecto.t2.model.service.sistema.IComboService;
-import com.proyecto.t2.model.service.sistema.IPiqueoService;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

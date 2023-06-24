@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Pollo;
 import com.proyecto.t2.model.entidad.User;
-import com.proyecto.t2.model.service.sistema.IPolloService;
+import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 
 @Controller
 @RequestMapping("intranet/pollo")

@@ -1,4 +1,4 @@
-package com.proyecto.t2.model.service;
+package com.proyecto.t2.controller;
 
 
 import java.util.List;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.t2.model.dao.IMenuDAO;
 import com.proyecto.t2.model.entidad.Menu;
+import com.proyecto.t2.model.service.sistema.interfaces.IMenuService;
 
 @Service
 public class MenuServiceImp implements IMenuService{

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Piqueo;
 import com.proyecto.t2.model.entidad.User;
-import com.proyecto.t2.model.service.sistema.IPiqueoService;
+import com.proyecto.t2.model.service.sistema.interfaces.IPiqueoService;
 
 @Controller
 @RequestMapping("intranet/piqueo")

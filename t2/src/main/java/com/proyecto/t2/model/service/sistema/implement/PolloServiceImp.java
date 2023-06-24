@@ -1,4 +1,4 @@
-package com.proyecto.t2.model.service.sistema;
+package com.proyecto.t2.model.service.sistema.implement;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.t2.model.dao.sistema.IPolloDAO;
 import com.proyecto.t2.model.entidad.Pollo;
+import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 
 @Service
 public class PolloServiceImp implements IPolloService{

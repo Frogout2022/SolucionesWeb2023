@@ -1,4 +1,4 @@
-package com.proyecto.t2.model.service.sistema;
+package com.proyecto.t2.model.service.sistema.interfaces;
 
 import java.util.List;
 

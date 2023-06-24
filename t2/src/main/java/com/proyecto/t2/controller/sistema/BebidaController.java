@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Bebida;
 import com.proyecto.t2.model.entidad.User;
-import com.proyecto.t2.model.service.IBebidaService;
+import com.proyecto.t2.model.service.sistema.interfaces.IBebidaService;
 
 @Controller
 @RequestMapping("intranet/bebida")

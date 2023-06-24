@@ -1,4 +1,4 @@
-package com.proyecto.t2.model.service;
+package com.proyecto.t2.controller;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.t2.model.dao.IbebidaDAO;
 import com.proyecto.t2.model.entidad.Bebida;
+import com.proyecto.t2.model.service.sistema.interfaces.IBebidaService;
 
 @Service
 public class BebidaServiceImp implements IBebidaService{
