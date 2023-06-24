@@ -86,14 +86,13 @@ CREATE TABLE IF NOT EXISTS Combo (
     FOREIGN KEY (IDPollo) REFERENCES Pollo (IDPollo)
 ) ;
 
-insert into combo (nombre,precio,stock,idbebida, idmenu,idpiqueo) values
-('COMBO 1',55,10,null,null,null),
-('COMBO 2',65,10,null,null,null),
-('COMBO 3',75,10,null,null,null),
-('COMBO 4',85,10,null,null,null),
-('COMBO 5',95,10,null,null,null);
+insert into combo (nombre,precio,stock) values
+('COMBO 1',55,10),
+('COMBO 2',65,10),
+('COMBO 3',75,10),
+('COMBO 4',85,10),
+('COMBO 5',95,10);
 
-#select * from combo;
 
 CREATE TABLE IF NOT EXISTS Compra (
     IDCompra INT AUTO_INCREMENT NOT NULL,

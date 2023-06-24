@@ -50,7 +50,7 @@ public class MainController {
                 String nom_completo = User.user.getNombre();
                 String[] primer_nom = nom_completo.trim().split("\\s+");
                 model.addAttribute("nombre", primer_nom[0]);
-                return "cliente/extranetTest";
+                return "cliente/extranet";
         }else if(User.sesion && User.login_emp){
                 return "redirect:/intranet";
         }else{
