@@ -18,7 +18,7 @@ public class BebidaController {
     private IBebidaService bebidaService;
     @RequestMapping("/")
     public String inicio(Model model){
-        if(User.sesion && User.login_emp){//validar sesion del admin
+        if(User.validar_admin()){//validar sesion del admin
             Bebida bebida=new Bebida();
             model.addAttribute("bebida", bebida);
             model.addAttribute("listaBebida", bebidaService.mostrBebidas());
