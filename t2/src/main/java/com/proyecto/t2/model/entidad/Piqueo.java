@@ -25,6 +25,7 @@ public class Piqueo {
 
     @Column(name="porcion")
     private String porcion;
+    
     @Column(name = "Stock")
     private int stock;
 
