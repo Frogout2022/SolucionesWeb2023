@@ -9,6 +9,16 @@
                 <nav th:replace="layouts/plantilla_intranet::contenidoarriba"></nav>
         <!-- CONTENIDO -->
                 <div class="container-fluid">
+
+                    <div class="alert alert-warning alert-dismissible fade show" th:if="${mensaje != null}" role="alert">
+
+                        <span th:text="${mensaje}"></span>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                    </div>
+
+
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">COMBO</h1>
                     </div>
@@ -71,9 +81,9 @@
                                             <i class="fa-solid fa-floppy-disk">
                                                 GUARDAR COMBO
                                         </button>
-                                        <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/combo/';">
+                                        <button type="button" class="btn btn-secondary" onclick="window.location.href='/intranet/combo/';">
                                             <i  class="fa-solid fa-floppy-disk"></i>
-                                                CREAR NUEVO COMBO
+                                                LIMPIAR FORM
                                         </button>
                                     </div>
                                 </div>
@@ -163,7 +173,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form th:action="@{/intranet/combo/guardar}" th:object="${combo}" method="post">
+                <form th:action="@{/intranet/combo/editar}" th:object="${combo}" method="post">
                     <div class="modal-body">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="row">
