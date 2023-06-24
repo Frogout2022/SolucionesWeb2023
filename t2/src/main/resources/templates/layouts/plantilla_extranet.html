@@ -33,7 +33,7 @@
     <body id="page-top">
         <div id="wrapper">
                   <!-- CONTENIDO IZQUIERDO -->
-            <ul th:fragment="contenidoizquierdo" class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: rgb(250, 176, 5);">
+            <ul th:fragment="contenidoizquierdo" class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: rgb(5, 83, 250);">
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/intranet}">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink">
@@ -60,12 +60,12 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{#}">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>OPCION2</span></a>
+                        <span>HISTORIAL</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{#/}">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>OPCION3</span></a>
+                        <span>BOLETAS</span></a>
                 </li>
                
                 <hr class="sidebar-divider">
@@ -76,6 +76,16 @@
                     <a class="nav-link" th:href="@{#}">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Actualizar datos</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{#}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Reclamos</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{#}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Notificaciones</span></a>
                 </li>
                 <hr class="sidebar-divider d-none d-md-block">
             </ul>

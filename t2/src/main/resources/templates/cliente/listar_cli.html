@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/plantilla_intranet::cabezaintranet"></head>
+<body id="page-top">
+    <div id="wrapper"> 
+        <ul th:replace="layouts/plantilla_intranet::contenidoizquierdo"></ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="layouts/plantilla_intranet::contenidoarriba"></nav>
+        <!-- CONTENIDO -->
+                <div class="container-fluid">
+                    
+                    <br><br>
+                        <div class="card ">
+                            <div class="card-header">
+                                Clientes registrados
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>NOMBRE</th>
+                                                <th>DIRECCION</th>
+                                                <th>TELEFONO</th>
+                                                <th>CORREO</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr th:each="item: ${listaClientes}">
+                                                <td th:text="${item.nombre}"></td>
+                                                <td th:text="${item.direccion}"></td>
+                                                <td th:text="${item.telefono}"></td>
+                                                <td th:text="${item.correo}"></td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
+</body>
+</html>
