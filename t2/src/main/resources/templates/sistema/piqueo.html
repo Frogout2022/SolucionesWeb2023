@@ -45,7 +45,7 @@
                                     </button>
                                     <button type="submit" class="btn btn-success">
                                         <i class="fa-solid fa-floppy-disk"></i>
-                                            GUARDAR PIQUEOS
+                                            GUARDAR PIQUEO
                                     </button>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                                 <th>PRECIO</th>
                                                 <th>STOCK</th>
                                                 <th>PORCION</th>
-                                                <th>CANTIDAD</th>
+                                                
                                             </tr>
                                         </thead>
 
@@ -78,7 +78,7 @@
                                                 <td th:text="${item.precio}"></td>
                                                 <td th:text="${item.stock}"></td>
                                                 <td th:text="${item.porcion}"></td>
-                                                <td th:text="${item.cantidad}"></td>
+                                        
                                                 <td class="text-center">
                                                     <a th:href="@{mostrarEditar/} + ${item.id}" class="btn btn-warning">
                                                         <i class="fa-solid fa-pen-to-square"></i> Editar
