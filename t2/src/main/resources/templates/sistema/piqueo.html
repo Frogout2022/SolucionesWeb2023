@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/plantilla_intranet::cabezaintranet"></head>
+<body id="page-top">
+    <div id="wrapper"> 
+        <ul th:replace="layouts/plantilla_intranet::contenidoizquierdo"></ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="layouts/plantilla_intranet::contenidoarriba"></nav>
+        <!-- CONTENIDO -->
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">PIQUEOS</h1>
+                    </div>
+                    <form th:action="@{/intranet/piqueo/guardar}" th:object="${piqueo}" method="post">
+                        <div class="card-body">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                        <label>NOMBRE: </label>
+                                        <input th:field="*{nombre}" type="text" class="form-control" placeholder="Ingrese el nombre"/>
+                                </div>
+                                <div class="col-md-6 mb-3" >
+                                    <label>TIPO: </label>
+                                    <input th:field="*{tipo}" type="text" class="form-control" placeholder="Ingrese la cantidad"/>
+                                </div>
+                                <div class="col-md-6 mb-3" >
+                                    <label>PRECIO: </label>
+                                    <input th:field="*{precio}" type="text" class="form-control" placeholder="Ingrese el precio"/>
+                                </div>
+                                <div class="col-md-6 mb-3" >
+                                    <label>PORCION: </label>
+                                    <input th:field="*{porcion}" type="text" class="form-control" placeholder="Ingrese la cantidad"/>
+                                </div>
+                                <div class="col-md-6 mb-3" >
+                                    <label>STOCK: </label>
+                                    <input th:field="*{stock}" type="text" class="form-control" placeholder="Ingrese el stock"/>
+                                </div>
+                            </div> 
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/intranet/piqueo/';">
+                                        <i class="fa-regular fa-file"></i>
+                                        NUEVO PIQUEOS
+                                    </button>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                            GUARDAR PIQUEOS
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <br><br>
+                        <div class="card ">
+                            <div class="card-header">
+                                Piqueos Registrados
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>NOMBRE</th>
+                                                <th>TIPO</th>
+                                                <th>PRECIO</th>
+                                                <th>STOCK</th>
+                                                <th>PORCION</th>
+                                                <th>CANTIDAD</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr th:each="item: ${listaPiqueo}">
+                                                <td th:text="${item.nombre}"></td>
+                                                <td th:text="${item.tipo}"></td>
+                                                <td th:text="${item.precio}"></td>
+                                                <td th:text="${item.stock}"></td>
+                                                <td th:text="${item.porcion}"></td>
+                                                <td th:text="${item.cantidad}"></td>
+                                                <td class="text-center">
+                                                    <a th:href="@{mostrarEditar/} + ${item.id}" class="btn btn-warning">
+                                                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a th:href="@{eliminar/} + ${item.id}" class="btn btn-danger"
+                                                    onclick="return confirm('¿Desea eliminar el piqueo? ')">
+                                                        <i class="fa-solid fa-trash-can"></i> Eliminar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
+    <script th:src="@{/js/LibreriaPiqueo.js}"></script>
+</body>
+</html>
