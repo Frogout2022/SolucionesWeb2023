@@ -68,7 +68,7 @@
                                 <div class="row mt-3">
                                     <div class="col-12 text-center">
                                         <button type="submit" class="btn btn-success">
-                                            <i class="fa-solid fa-floppy-disk"></i>
+                                            <i class="fa-solid fa-floppy-disk">
                                                 GUARDAR COMBO
                                         </button>
                                         <button type="button" class="btn btn-success" onclick="window.location.href='/intranet/combo/';">
@@ -163,7 +163,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form th:action="@{#}" th:object="${combo}" method="post">
+                <form th:action="@{/intranet/combo/guardar}" th:object="${combo}" method="post">
                     <div class="modal-body">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="row">
@@ -235,14 +235,6 @@
 
     </div>
 
-    <script>
-        function mostrarModalEditar() {
-
-
-            new bootstrap.Modal(document.getElementById('modalEditar')).show();
-            //$('#modalEditar').modal('show');
-        }
-    </script>
     <script src="/js/scriptCombo.js"></script>
 
     <div th:replace="layouts/plantilla_intranet::pieintranet"></div>
