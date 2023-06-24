@@ -1,5 +1,5 @@
+#drop database polleria;
 CREATE DATABASE IF NOT EXISTS Polleria;
-#drop database Polleria;
 USE Polleria;
 
 CREATE TABLE IF NOT EXISTS Cliente (
@@ -15,12 +15,10 @@ CREATE TABLE IF NOT EXISTS Cliente (
 
 INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
 ('MILHOS KASSIAN SIHUAY BARZOLA', 'Joaquin Capello 2486','mi@g.com', '123456', 'Lima'),
-('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Direccion2','chr@g.com', '123456', 'Lima'),
-('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','ge@g.com', '123456', 'Lima');
+('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Unidad Vecinal De Mirones Chalet 8','n00224502@upn.pe', '123456', 'Lima'),
+('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','n00057393@upn.pe', '123456', 'Lima'),
+('JHON FRANCISCO JOVE OBANDO', 'Direccion4','n00233133@upn.pe', '123456', 'Lima');
 
-
-select * from cliente;
-#use polleria;
 
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
@@ -43,7 +41,6 @@ CREATE TABLE IF NOT EXISTS Menu (
     PRIMARY KEY (IDMenu)
 );
 
-#select * from menu;
 
 CREATE TABLE IF NOT EXISTS Piqueo (
     IDPiqueo INT AUTO_INCREMENT NOT NULL,
@@ -80,18 +77,19 @@ CREATE TABLE IF NOT EXISTS Combo (
     IDPollo INT NULL,
     IDPiqueo INT NULL,
     PRIMARY KEY (IDCombo),
-    FOREIGN KEY (IDBebida) REFERENCES Bebida (IDBebida),
-    FOREIGN KEY (IDMenu) REFERENCES Menu (IDMenu),
-    FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo),
-    FOREIGN KEY (IDPollo) REFERENCES Pollo (IDPollo)
+    FOREIGN KEY (IDBebida) REFERENCES Bebida (IDBebida) on delete cascade,
+    FOREIGN KEY (IDMenu) REFERENCES Menu (IDMenu) on delete cascade,
+    FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo) on delete cascade,
+    FOREIGN KEY (IDPollo) REFERENCES Pollo (IDPollo) on delete cascade
 ) ;
 
 insert into combo (nombre,precio,stock) values
 ('COMBO 1',55,10),
-('COMBO 2',65,10),
-('COMBO 3',75,10),
-('COMBO 4',85,10),
-('COMBO 5',95,10);
+('COMBO 2',65,11),
+('COMBO 3',75,12),
+('COMBO 4',85,13),
+('COMBO 5',95,14);
+
 
 
 CREATE TABLE IF NOT EXISTS Compra (
@@ -129,8 +127,3 @@ INSERT INTO TRABAJADOR (nombre, usuario, clave) VALUES
 ('MILHOS SIHUAY BARZOLA','mi_adm@g.com', '12345678'),
 ('CHRISTIAN  IZQUIERDO ALLEMANT', 'chr_adm@g.com', '12345678'),
 ('EMERSON CAHUANA PEREZ PALMA','ge_adm@g.com', '12345678');
-
-#select * from trabajador;
-
-
-
