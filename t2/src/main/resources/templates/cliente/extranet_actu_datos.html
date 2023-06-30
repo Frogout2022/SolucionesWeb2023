@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/plantilla_extranet::cabeza"></head>
+<body id="page-top">
+    <div id="wrapper"> 
+        <ul th:replace="layouts/plantilla_extranet::contenidoizquierdo"></ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="layouts/plantilla_extranet::contenidoarriba"></nav>
+        <!-- CONTENIDO -->
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                       
+                        <h1 class="h3 mb-0 text-gray-800">Bienvenido <span th:text="${nombre}"></span></h1>
+                        <h2>AQUI PUEDES ACTUALIZAR TUS DATOS</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="layouts/plantilla_extranet::pie"></div>
+</body>
+</html>
