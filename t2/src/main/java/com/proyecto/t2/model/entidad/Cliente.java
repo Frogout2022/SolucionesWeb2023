@@ -11,11 +11,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="cliente")
 public class Cliente {
-    //public static Boolean sesion = false;
-    //public static String usuario = "";
-    //public static String contra = "";
-    //public static Boolean recordar = false;
-    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

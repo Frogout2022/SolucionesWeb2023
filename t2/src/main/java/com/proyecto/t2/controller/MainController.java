@@ -44,8 +44,9 @@ public class MainController {
         return "";
     }
 
-    @GetMapping("/extranet")
+    @GetMapping("/extranet/")
     public String extra(Model model){
+        /* 
         if(User.sesion && User.login_cli){
                 String nom_completo = User.user.getNombre();
                 String[] primer_nom = nom_completo.trim().split("\\s+");
@@ -55,8 +56,21 @@ public class MainController {
                 return "redirect:/intranet";
         }else{
                 return "redirect:/login";
-        }
-        
+        }*/
+       
+        //String nom_completo = User.user.getNombre();
+        //String[] primer_nom = nom_completo.trim().split("\\s+");
+        //model.addAttribute("nombre", primer_nom[0]);
+        return "cliente/extranet"; 
+    }
+
+    @GetMapping("/polleria/login2")
+    public String login2(){
+        return "login2";
+    }
+    @GetMapping("/validacion/login2")
+    public String validacion(){
+        return "validacion";
     }
     
 }
