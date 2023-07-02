@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
 import com.proyecto.t2.model.entidad.Cliente;
@@ -55,7 +56,10 @@ public class MainController {
     }
 
     @GetMapping("/polleria/login")
-    public String loginSL(Cliente cli){ //vista
+    public String loginSL(Cliente cli,@RequestParam(name = "error", required = false) String error, Model model){ //vista
+        if (error != null) {
+            model.addAttribute("error", true);
+        }
         return "PolleriaLogin";
     }
     @GetMapping("/validacion/login")
