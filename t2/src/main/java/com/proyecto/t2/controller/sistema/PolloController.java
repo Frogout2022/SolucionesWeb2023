@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Pollo;
-import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 
 @Controller

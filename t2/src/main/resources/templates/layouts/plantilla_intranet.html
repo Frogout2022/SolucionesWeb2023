@@ -97,7 +97,12 @@
                     <nav th:fragment="contenidoarriba" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                         <ul class="navbar-nav ml-auto">
                             <div class="topbar-divider d-none d-sm-block"></div>
-                                <a th:href=@{/loginClose}>Cerrar Sesion</a>
+                                <!-- <a th:href=@{/loginClose}>Cerrar Sesion</a> -->
+                                <form th:action="@{/logout}" method="post">
+                                    <button class="btn-secondary" type="submit">
+                                        Cerrar Sesión
+                                    </button>
+                                </form>
                         </ul>
                     </nav>
                     

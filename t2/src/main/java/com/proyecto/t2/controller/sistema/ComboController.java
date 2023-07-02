@@ -12,7 +12,6 @@ import com.proyecto.t2.model.service.sistema.interfaces.IMenuService;
 import com.proyecto.t2.model.service.sistema.interfaces.IPiqueoService;
 import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 import com.proyecto.t2.model.entidad.Combo;
-import com.proyecto.t2.model.entidad.User;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
