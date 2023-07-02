@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-import com.proyecto.t2.model.entidad.User;
+
+import com.proyecto.t2.model.entidad.Cliente;
 
 
 @Controller
@@ -49,12 +50,16 @@ public class MainController {
     }
 
     @GetMapping("/polleria/login")
-    public String login2(){
-        return "login2";
+    public String loginSL(Cliente cli){ //vista
+        return "PolleriaLogin";
     }
-    @GetMapping("/validacion/login2")
+    @GetMapping("/validacion/login")
     public String validacion(){
         return "validacion";
+    }
+    @GetMapping("/acceso-denegado")
+    public String denegado(){
+        return "error/acceso_denegado";
     }
     
     

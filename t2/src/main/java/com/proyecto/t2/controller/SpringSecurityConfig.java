@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests()
-                .requestMatchers("/*", "/polleria/login2*").permitAll()
+                .requestMatchers("/*", "/polleria/login*").permitAll()
                 .requestMatchers("/extranet/**").hasAuthority("ROL_USUARIO")
                 .requestMatchers("/intranet/**").hasAuthority("ROL_ADMIN")
                 .anyRequest().authenticated()
@@ -40,6 +40,7 @@ public class SpringSecurityConfig {
                         .defaultSuccessUrl("/validacion/login", false))
                 .logout(logout -> logout
                         .permitAll());
+                //.exceptionHandling(handling -> handling.accessDeniedPage("/acceso-denegado"));
 
         return http.build();
     }
