@@ -86,12 +86,11 @@
                                     <div th:if="${valid_reg}">
                                         <p th:text="${valid_reg}" style="color: red;"> REGISTRO CORRECTO</p>
                                     </div>
-                                    <div th:if="${errorLogin}">
-                                        <p th:text="${errorLogin}" style="color: red;"> DATOS INCORRRECT</p>
-                                    </div>
+        
                                     
                                 </form>
                                 <div>
+                                    <button th:onclick="@{redirect:/}" class="btn btn-secondary"> Salir </button>
                                     <a href="/">Salir
 
                                     </a>

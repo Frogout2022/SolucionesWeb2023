@@ -22,10 +22,27 @@ public class Usuario {
     private String password;
     private Boolean enabled;
 
+    private String email_cli;
+    private String email_emp;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     @JoinColumn(name = "user_id")
     private List<Rol> roles;
 
+    
+
+    public String getEmail_cli() {
+        return email_cli;
+    }
+    public void setEmail_cli(String email_cli) {
+        this.email_cli = email_cli;
+    }
+    public String getEmail_emp() {
+        return email_emp;
+    }
+    public void setEmail_emp(String email_emp) {
+        this.email_emp = email_emp;
+    }
     public Long getId() {
         return id;
     }

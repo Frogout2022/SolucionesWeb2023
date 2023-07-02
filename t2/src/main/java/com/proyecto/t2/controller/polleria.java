@@ -7,9 +7,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class polleria extends SpringBootServletInitializer {
+public class Polleria extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(polleria.class, args);
+        SpringApplication.run(Polleria.class, args);
     }
 
     @Bean

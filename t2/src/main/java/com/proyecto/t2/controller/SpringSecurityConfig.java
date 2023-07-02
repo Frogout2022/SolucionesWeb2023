@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests()
-                .requestMatchers("/*", "/polleria/login*").permitAll()
+                .requestMatchers("/*", "/polleria/login*", "/cliente/registro*").permitAll()
                 .requestMatchers("/extranet/**").hasAuthority("ROL_USUARIO")
                 .requestMatchers("/intranet/**").hasAuthority("ROL_ADMIN")
                 .anyRequest().authenticated()
@@ -47,7 +47,7 @@ public class SpringSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() throws Exception{
-        return (web)->web.ignoring().requestMatchers("/assets/img/**","/css/**","/js/**");
+        return (web)->web.ignoring().requestMatchers("/assets/img/**","/css/**","/js/**", "/assets/**");
     }
     
 }
