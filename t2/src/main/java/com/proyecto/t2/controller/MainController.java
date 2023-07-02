@@ -35,36 +35,20 @@ public class MainController {
     }
     
 
-    @RequestMapping("/intranet")
+    @RequestMapping("/intranet/")
     public String dash(Model model){
-        if(User.sesion) {
-            if(User.login_emp) return "empleado/intranet";
-            if(User.login_cli) return "cliente/extranetTest"; //redirect -> ruta de GetMapping(link) - no redirect -> ubicacion html
-        }else return "redirect:/login";
-        return "";
+        return "empleado/intranet";
     }
 
     @GetMapping("/extranet/")
     public String extra(Model model){
-        /* 
-        if(User.sesion && User.login_cli){
-                String nom_completo = User.user.getNombre();
-                String[] primer_nom = nom_completo.trim().split("\\s+");
-                model.addAttribute("nombre", primer_nom[0]);
-                return "cliente/extranet";
-        }else if(User.sesion && User.login_emp){
-                return "redirect:/intranet";
-        }else{
-                return "redirect:/login";
-        }*/
-       
         //String nom_completo = User.user.getNombre();
         //String[] primer_nom = nom_completo.trim().split("\\s+");
         //model.addAttribute("nombre", primer_nom[0]);
         return "cliente/extranet"; 
     }
 
-    @GetMapping("/polleria/login2")
+    @GetMapping("/polleria/login")
     public String login2(){
         return "login2";
     }
@@ -72,5 +56,6 @@ public class MainController {
     public String validacion(){
         return "validacion";
     }
+    
     
 }

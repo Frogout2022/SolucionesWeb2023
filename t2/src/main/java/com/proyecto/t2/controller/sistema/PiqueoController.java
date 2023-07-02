@@ -18,15 +18,12 @@ public class PiqueoController {
     private IPiqueoService piqueoService;
     @RequestMapping("/")
     public String inicio(Model model){
-        if(User.sesion && User.login_emp){//validar sesion del admin
-            Piqueo piqueo=new Piqueo();
-            model.addAttribute("piqueo", piqueo);
-            model.addAttribute("titulo", "Registrar nuevo piqueo");
-            model.addAttribute("listaPiqueo", piqueoService.mostrarPiqueos());
-            return "sistema/piqueo";
-        }
-        return "redirect:/login";
-        
+        Piqueo piqueo=new Piqueo();
+        model.addAttribute("piqueo", piqueo);
+        model.addAttribute("titulo", "Registrar nuevo piqueo");
+        model.addAttribute("listaPiqueo", piqueoService.mostrarPiqueos());
+        return "sistema/piqueo";
+       
     }
 
     @RequestMapping("/guardar")
@@ -37,17 +34,13 @@ public class PiqueoController {
 
     @RequestMapping("/mostrarEditar/{id}")
     public String editar(@PathVariable(value = "id") Long id, Model model){
-        if(User.sesion && User.login_emp){ //validar la sesion del admin
-            Piqueo Piqueo = new Piqueo();
-            Piqueo = piqueoService.buscarPiqueo(id);
-            model.addAttribute("piqueo", Piqueo);
-            model.addAttribute("titulo", "Modificar piqueo");
-            model.addAttribute("listaPiqueo", piqueoService.mostrarPiqueos());
-            return "sistema/piqueo"; 
-        }
-        return "redirect:/login";
+        Piqueo Piqueo = new Piqueo();
+        Piqueo = piqueoService.buscarPiqueo(id);
+        model.addAttribute("piqueo", Piqueo);
+        model.addAttribute("titulo", "Modificar piqueo");
+        model.addAttribute("listaPiqueo", piqueoService.mostrarPiqueos());
+        return "sistema/piqueo"; 
 
-        
     }
     @RequestMapping("/eliminar/{id}")
     public String eliminar(@PathVariable(value = "id") Long id){

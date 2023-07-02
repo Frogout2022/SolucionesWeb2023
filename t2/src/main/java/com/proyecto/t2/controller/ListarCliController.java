@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.IClienteService;
 
 @Controller
@@ -16,12 +14,8 @@ public class ListarCliController {
     private IClienteService iClienteService;
     @RequestMapping("/listar_cli")
     public String inicio(Model model){
-        if(User.validar_admin()){//validar sesion del admin
-            model.addAttribute("listaClientes", iClienteService.listarClientes());
-            return "cliente/listar_cli";
-        }
-        return "redirect:/login";
-       
+        model.addAttribute("listaClientes", iClienteService.listarClientes());
+        return "cliente/listar_cli";
     }
 
     
