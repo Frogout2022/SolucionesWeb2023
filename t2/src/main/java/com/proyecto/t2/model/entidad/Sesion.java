@@ -3,7 +3,7 @@ package com.proyecto.t2.model.entidad;
 
 import java.util.List;
 
-public class User {
+public class Sesion {
     //inicializar sesión
     public static boolean sesion = false;
 

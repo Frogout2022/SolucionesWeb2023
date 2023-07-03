@@ -15,7 +15,6 @@ import com.proyecto.t2.model.dao.IRolDAO;
 import com.proyecto.t2.model.dao.IUsuarioDAO;
 import com.proyecto.t2.model.entidad.Cliente;
 import com.proyecto.t2.model.entidad.Rol;
-import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.entidad.Usuario;
 import com.proyecto.t2.model.service.IClienteService;
 
@@ -38,13 +37,8 @@ public class RegistroController {
     public String mostrarFormRegistro(
         Cliente cli //creamos objeto cliente para la vista
         ){
-        if(User.sesion && ( User.login_cli || User.login_emp ) ) {
-            User.sesion = false;
-            User.login_cli = false;
-            User.login_emp = false;
-            return "cliente/registrarse";
-        }
-        else return "/cliente/registrarse"; //ruta html
+        
+        return "/cliente/registrarse"; //ruta html
     }
     
     @PostMapping("/registro") //funcion del form
@@ -70,7 +64,11 @@ public class RegistroController {
                     user_temp.setEmail_cli(user.getCorreo());
                     user_temp.setUsername(username);
                     user_temp.setEnabled(true);
-                    user_temp.setPassword(user.getClave());
+                    //user_temp.setPassword(user.getClave());
+
+                    //ecnriptar clave
+                    String encrypString = SpringSecurityConfig.encriptarPassword().encode(user.getClave());
+                    user_temp.setPassword(encrypString);
 
                     iUsuarioDAO.save(user_temp); // --> INSERT USUARIO
                     

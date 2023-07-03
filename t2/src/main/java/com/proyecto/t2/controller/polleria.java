@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
+//maejo de erroes
 @SpringBootApplication
 public class Polleria extends SpringBootServletInitializer {
     public static void main(String[] args) {
