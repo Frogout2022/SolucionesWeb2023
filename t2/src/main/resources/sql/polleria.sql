@@ -2,16 +2,63 @@
 CREATE DATABASE IF NOT EXISTS Polleria2;
 USE Polleria2;
 
+CREATE TABLE IF NOT EXISTS Cliente ( # extranet
+    IDCliente INT AUTO_INCREMENT NOT NULL,
+    Nombre VARCHAR(50) NULL,
+    Direccion VARCHAR(50) NULL,
+    Telefono VARCHAR(13) NULL,
+    Correo VARCHAR(40) UNIQUE NOT NULL,
+    Clave VARCHAR(15) NOT NULL,
+    Distrito VARCHAR(50) NULL,
+    PRIMARY KEY (IDCliente)
+) ;
+
+INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
+('MILHOS KASSIAN SIHUAY BARZOLA', 'Joaquin Capello 2486','n00177104@upn.pe', '0000', 'Lima'),
+('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Unidad Vecinal De Mirones Chalet 8','n00224502@upn.pe', '0000', 'Lima'),
+('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','n00057393@upn.pe', '0000', 'Lima'),
+('JHON FRANCISCO JOVE OBANDO', 'Direccion4','n00233133@upn.pe', '0000', 'Lima');
+
+CREATE TABLE IF NOT EXISTS Trabajador ( # intranet
+    IDTrabajador INT AUTO_INCREMENT NOT NULL,
+    Nombre VARCHAR(50) NULL,
+    Telefono VARCHAR(13) unique NULL,
+    Usuario VARCHAR(20) unique NULL,
+    Clave VARCHAR(15) default '0000',
+    correo varchar(45) unique,
+    PRIMARY KEY (IDTrabajador)
+);
+
+
+INSERT INTO TRABAJADOR (nombre, correo) VALUES
+('MILHOS SIHUAY BARZOLA','mi_adm@g.com'),
+('CHRISTIAN  IZQUIERDO ALLEMANT', 'chr_adm@g.com'),
+('EMERSON CAHUANA PEREZ PALMA','ge_adm@g.com'),
+('JHON FRANCISCO JOVE OBANDO','jh_adm@g.com');
+
+
+
 create table if not exists usuarios(
 id int auto_increment primary key,
 username varchar(45) unique not null,
-password varchar(60) not null default '$2a$12$imQ8rBkD2jdUIXw50vP2je3LgsQZG98aaOrbIFD5UW6YDUIQVgIui', #---
+password varchar(60) not null default '$2a$12$imQ8rBkD2jdUIXw50vP2je3LgsQZG98aaOrbIFD5UW6YDUIQVgIui', # 0000
 enabled tinyint default 1,
+email_cli varchar(40) unique,
+email_emp varchar(40) unique,
+foreign key (email_cli) references cliente (correo),
+foreign key (email_emp) references trabajador (correo)
 );
 
-insert into usuarios (username) values 
-('adm_milhos'), #hola123
-('milhos'); #hola321
+insert into usuarios (username, email_emp) values 
+('adm_milhos','mi_adm@g.com'),
+('adm_gerardo','ge_adm@g.com'),
+('adm_christhian','chr_adm@g.com'),
+('adm_jhon','jh_adm@g.com');
+insert into usuarios(username,email_cli) values
+('milhos','n00177104@upn.pe'),
+('gerardo','n00057393@upn.pe'), 
+('christian','n00224502@upn.pe'), 
+('jhon','n00233133@upn.pe');  
 
 
 create table if not exists roles(
@@ -21,30 +68,18 @@ authority varchar(45) not null,
 foreign key (user_id) references usuarios (id)
 );
 
+insert into roles(user_id, authority) values
+(1, 'ROL_ADMIN'),
+(2, 'ROL_ADMIN'),
+(3, 'ROL_ADMIN'),
+(4, 'ROL_ADMIN'),
 
-insert into roles values
-(null, 1, 'ROL_ADMIN'),
-(null, 1, 'ROL_USUARIO'),
-(null, 2, 'ROL_USUARIO');
+(5, 'ROL_USUARIO'),
+(6, 'ROL_USUARIO'),
+(7, 'ROL_USUARIO'),
+(8, 'ROL_USUARIO');
 
-CREATE TABLE IF NOT EXISTS Cliente (
-    IDCliente INT AUTO_INCREMENT NOT NULL,
-    Nombre VARCHAR(50) NULL,
-    Direccion VARCHAR(50) NULL,
-    Telefono VARCHAR(13) NULL,
-    Correo VARCHAR(40) NOT NULL,
-    Clave VARCHAR(15) NOT NULL,
-    Distrito VARCHAR(50) NULL,
-    PRIMARY KEY (IDCliente)
-) ;
-
-INSERT INTO CLIENTE (nombre,direccion, correo, clave, distrito) VALUES
-('MILHOS KASSIAN SIHUAY BARZOLA', 'Joaquin Capello 2486','mi@g.com', '123456', 'Lima'),
-('CHRISTIAN GABRIEL IZQUIERDO ALLEMANT', 'Unidad Vecinal De Mirones Chalet 8','n00224502@upn.pe', '123456', 'Lima'),
-('EMERSON GERARDO CAHUANA PEREZ PALMA', 'Direccion3','n00057393@upn.pe', '123456', 'Lima'),
-('JHON FRANCISCO JOVE OBANDO', 'Direccion4','n00233133@upn.pe', '123456', 'Lima');
-
-
+#-------- TABLAS DEL SISTEMA --------
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(20) NULL,
@@ -55,7 +90,6 @@ CREATE TABLE IF NOT EXISTS Bebida (
     PRIMARY KEY (IDBebida)
 ) ;
 
-#select * from bebida;
 
 CREATE TABLE IF NOT EXISTS Menu (
     IDMenu INT AUTO_INCREMENT NOT NULL,
@@ -136,19 +170,3 @@ CREATE TABLE IF NOT EXISTS Compra (
     FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente),
     FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo)
 );
-
-
-CREATE TABLE IF NOT EXISTS Trabajador (
-    IDTrabajador INT AUTO_INCREMENT NOT NULL,
-    Nombre VARCHAR(50) NULL,
-    Telefono VARCHAR(13) unique NULL,
-    Usuario VARCHAR(20) unique NOT NULL,
-    Clave VARCHAR(15) NOT NULL,
-    PRIMARY KEY (IDTrabajador)
-);
-
-
-INSERT INTO TRABAJADOR (nombre, usuario, clave) VALUES
-('MILHOS SIHUAY BARZOLA','mi_adm@g.com', '12345678'),
-('CHRISTIAN  IZQUIERDO ALLEMANT', 'chr_adm@g.com', '12345678'),
-('EMERSON CAHUANA PEREZ PALMA','ge_adm@g.com', '12345678');

@@ -26,10 +26,11 @@ public class CustomErrorController implements ErrorController{
                 return "/error/error-401";
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 // Manejar error 403
-                return "/error/error-403";
+                //return "/error/error-403";
+                return "/error/acceso_denegado";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 // Manejar error 500
-                return "/errorerror-500";
+                return "/error/error-500";
             }
         }
         //manejar otros error
