@@ -12,8 +12,11 @@ public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long user_id;
     private String authority;
     
+    
+
     public Long getId() {
         return id;
     }
@@ -25,5 +28,11 @@ public class Rol {
     }
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+    public Long getUser_id() {
+        return user_id;
+    }
+    public void setUser_id(Long long1) {
+        this.user_id = long1;
     }
 }

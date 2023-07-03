@@ -34,7 +34,10 @@
                             <div class="col-lg-10 col-xl-7 mx-auto">  
                                 <div th:if="${param.error}" class="alert alert-danger" role="alert">
                                     Usuario o contraseña incorrectos. Por favor, intenta nuevamente.
-                                </div>   
+                                </div>
+                                <div th:if="${param.success}" class="alert alert-success" role="alert">
+                                    Usuario registrado correctamente.
+                                </div>     
                                 <form th:action="@{/polleria/login}" th:object="${cliente}" method="post">
                                     <div class="form-group mb-3">
                                         <input id="usuario" th:attr="value=${usuario}, field=*{correo}"  name="username" type="text" placeholder="Usuario" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" required>
