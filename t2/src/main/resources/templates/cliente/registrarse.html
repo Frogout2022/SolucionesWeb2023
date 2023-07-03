@@ -13,7 +13,7 @@
     
 
     <!-- Bootstrap core CSS -->
-<link th:href="@{../assets/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{../assets/dist/css/bootstrap.min.css}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -46,7 +46,7 @@
     <div class="row g-5 d-flex justify-content-center">
       <div class="col-md-7 col-lg-8">
 
-        <form th:action="@{#}"  th:object="${cliente}" onsubmit="return validaciones()" method="post">
+        <form th:action="@{/cliente/registro}"  th:object="${cliente}" onsubmit="return validaciones()" method="post">
           <input type="hidden" th:field="*{id}">
           <div class="row g-3">
             <div class="col-sm-6">
@@ -69,7 +69,7 @@
                 <p th:text="${valid_telf}" style="color: red;">TELF DUPLI</p>
               </div>
               
-            <div class="col-12">
+            <div class="col-sm-6">
               <label for="email" class="form-label">EMAIL </label>
               <input  type="email" class="form-control" th:field="*{correo}" id="email" placeholder="tucorreo@ejemplo.com" required>
               
@@ -77,6 +77,17 @@
             <div th:if="${valid_email}">
               <p th:text="${valid_email}" style="color: red;">EMAIL DUPLI</p>
             </div>
+            <div class="col-sm-6">
+              <label for="username" class="form-label">
+                USUARIO
+                <span th:if="${valid_user}" th:text="${valid_user}" style="color: red;">
+                    USER DUPLI
+                </span>
+
+              </label>
+              <input  type="text" class="form-control"  name="username" id="username" placeholder="username" required>
+            </div>
+            
 
             <div class="col-sm-6">
               <label for="clave" class="form-label">CONTRASEÑA</label>
@@ -90,12 +101,12 @@
             </div>
 
             <div class="col-12">
-              <label for="address" class="form-label">DIRECCION <span class="text-muted">(OPCIONAL)</span></label>
+              <label for="address" class="form-label">DIRECCION <span class="text-muted">(opcional)</span></label>
               <input  type="text" class="form-control" th:field="*{direccion}" id="address" placeholder="Av HermanosHeraso 123">
              
             </div>
             <div class="col-md-5">
-              <label for="country" class="form-label">DISTRITO</label>
+              <label for="country" class="form-label">DISTRITO <span class="text-muted">(opcional)</span></label>
               <select class="form-select" id="country">
                 <option  value=""disabled selected>Escoge tu distrito</option>
                 <option>BREÑA</option>
@@ -124,9 +135,9 @@
           
         </form>
         
-        <a href="/">
+        <button class="btn btn-secondary" th:href="@{redirect:/}">
           Salir
-        </a>
+        </button>
         
 
         <script>

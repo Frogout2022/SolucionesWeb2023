@@ -5,17 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
 @Entity
 @Table(name="cliente")
 public class Cliente {
-    //public static Boolean sesion = false;
-    //public static String usuario = "";
-    //public static String contra = "";
-    //public static Boolean recordar = false;
-    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +39,14 @@ public class Cliente {
     @Column(name="distrito")
     private String distrito;
 
+    /*
+    @OneToOne // un cliente tiene un usuario -> y 1 usuario pertenece a 1 cliente
+    @JoinColumn(name="email_cli")
+    private Usuario usuario;
+    */
+
 //geters and setter
+
 
     public Long getId() {
         return id;
@@ -98,7 +104,6 @@ public class Cliente {
         this.distrito = distrito;
     }
 
-    
 
     
 }

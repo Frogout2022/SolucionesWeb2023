@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.proyecto.t2.model.dao.IRolDAO;
+import com.proyecto.t2.model.dao.IUsuarioDAO;
 import com.proyecto.t2.model.entidad.Cliente;
-import com.proyecto.t2.model.entidad.User;
+import com.proyecto.t2.model.entidad.Rol;
+import com.proyecto.t2.model.entidad.Usuario;
 import com.proyecto.t2.model.service.IClienteService;
 
 
@@ -22,8 +25,10 @@ public class RegistroController {
 
     @Autowired
     private IClienteService iClienteService;
-    
-    private List<Cliente> listaClientes;
+    @Autowired
+    private IUsuarioDAO iUsuarioDAO;
+    @Autowired
+    private IRolDAO iRolDAO;
 
     
 // #######################----------- REGISTRO ------------#################
@@ -32,71 +37,74 @@ public class RegistroController {
     public String mostrarFormRegistro(
         Cliente cli //creamos objeto cliente para la vista
         ){
-        if(User.sesion && ( User.login_cli || User.login_emp ) ) {
-            User.sesion = false;
-            User.login_cli = false;
-            User.login_emp = false;
-            return "cliente/registrarse";
-        }
-        else return "/cliente/registrarse"; //ruta html
+        
+        return "/cliente/registrarse"; //ruta html
     }
     
     @PostMapping("/registro") //funcion del form
     public String procesarFormRegistro(
             @RequestParam("apellido") String apellido, //usa el atributo 'name'
+            @RequestParam("username") String username,
             Model model,
             Cliente user //recuperamos el objeto user del POST
             ){
 
-            Boolean emailDuplicado=false, telfDuplicado=false;
+            Boolean emailDuplicado=false, telfDuplicado=false, usernameDuplicado = false;
 
-            listaClientes = new ArrayList<>(); //inicializar lista
-            listaClientes = iClienteService.listarClientes(); //llenar lista
-            if(listaClientes.size()!=0){
-                
-                for(int i=0; i<listaClientes.size();i++){
-                    //buscar correo
-                    if( user.getCorreo().equals(listaClientes.get(i).getCorreo()) ){
-                            //correo ya existe!
-                            emailDuplicado= true;  
-                    }
-                    //buscar telefono
-                    if( user.getTelefono().equals(listaClientes.get(i).getTelefono()) ){
-                        //telefono ya existe!
-                        telfDuplicado= true;
-                    }
-                }
-                
-                if(!emailDuplicado && !telfDuplicado){
-                        user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
-                        iClienteService.registrarCliente(user); // --> INSERT CLIENTE
-                        
-                        //mensaje
-                        model.addAttribute("valid_reg", "Registro exitoso");
-                        
-                        return "cliente/login"; //NO usar redirect (se pierde el model)
-                        
-                }else{ //datos ingresado no validos (error)
-                    if(telfDuplicado){
-                        model.addAttribute("valid_telf", "Celular ya registrado");
-                        //result.rejectValue("correo", "error.cli", "El correo ya está registrado");
-                    }
-                       
-                    if(emailDuplicado)
-                        model.addAttribute("valid_email", "Correo ya registrado");
+            emailDuplicado = iClienteService.buscarCorreo(user.getCorreo());
+            telfDuplicado = iClienteService.buscarCelular(user.getTelefono());
+            Usuario usuarioFind = iUsuarioDAO.findByUsername(username);
+            if(usuarioFind!= null) usernameDuplicado = true;
+            
+            if(!emailDuplicado && !telfDuplicado && !usernameDuplicado){
+                    user.setNombre(user.getNombre()+" "+apellido); //añadir apellido
+                    iClienteService.registrarCliente(user); // --> INSERT CLIENTE
+                    
+                    Usuario user_temp = new Usuario();
+                    user_temp.setEmail_cli(user.getCorreo());
+                    user_temp.setUsername(username);
+                    user_temp.setEnabled(true);
+                    //user_temp.setPassword(user.getClave());
 
-                        model.addAttribute("apellido", apellido);
-                        return "cliente/registrarse"; //retornar vista
-                }
+                    //ecnriptar clave
+                    String encrypString = SpringSecurityConfig.encriptarPassword().encode(user.getClave());
+                    user_temp.setPassword(encrypString);
 
-            }else{
-                //lista de clientes en la BD vacía
-                model.addAttribute("error", "Lista vacía de la tabla Cliente en BD");
-                return "error/error";
+                    iUsuarioDAO.save(user_temp); // --> INSERT USUARIO
+                    
+                    Usuario user_temp2 = iUsuarioDAO.findByUsername(username);
+                    if(user_temp2!=null){
+                        Rol rol = new Rol();
+                        rol.setAuthority("ROL_USUARIO");
+                        rol.setUser_id(user_temp2.getId());
+                        iRolDAO.save(rol); // --> INSERT ROL
+                    }
+                    
+
+
+                    //mensaje
+                    model.addAttribute("valid_reg", "Registro exitoso");
+                    model.addAttribute("success", "Exitoso");
+                    //ruta login
+                    return "redirect:/polleria/login?success"; //NO usar redirect (se pierde el model)
+                        
+                    
+            }else{ //datos ingresado no validos (error)
+                if(telfDuplicado)
+                    model.addAttribute("valid_telf", "Celular ya registrado");
+                    
+                if(emailDuplicado)
+                    model.addAttribute("valid_email", "Correo ya registrado");
+
+                if(usernameDuplicado)
+                    model.addAttribute("valid_user", "(Usuario ya registrado)");
+
+                model.addAttribute("apellido", apellido);
+                return "cliente/registrarse"; //retornar vista
             }
 
-      //return "cliente/registrarse";
-    }
+            
+        }
 
 
 }

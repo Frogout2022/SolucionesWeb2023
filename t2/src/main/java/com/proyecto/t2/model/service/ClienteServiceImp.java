@@ -29,5 +29,19 @@ public class ClienteServiceImp implements IClienteService {
         return iClienteDAO.findById(id).orElse(null);
     }
 
+    @Override
+    public Boolean buscarCorreo(String correo) {
+        Cliente cli = iClienteDAO.findByCorreo(correo);
+        if(cli== null) return false;
+        else return true;
+    }
+
+    @Override
+    public Boolean buscarCelular(String celular) {
+        Cliente cli = iClienteDAO.findByTelefono(celular);
+        if(cli == null) return false;
+        else return true;
+    }
+
     
 }

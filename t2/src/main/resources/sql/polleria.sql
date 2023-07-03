@@ -1,6 +1,31 @@
-#drop database polleria;
-CREATE DATABASE IF NOT EXISTS Polleria;
-USE Polleria;
+#drop database polleria2;
+CREATE DATABASE IF NOT EXISTS Polleria2;
+USE Polleria2;
+
+create table if not exists usuarios(
+id int auto_increment primary key,
+username varchar(45) unique not null,
+password varchar(60) not null default '$2a$12$imQ8rBkD2jdUIXw50vP2je3LgsQZG98aaOrbIFD5UW6YDUIQVgIui', #---
+enabled tinyint default 1,
+);
+
+insert into usuarios (username) values 
+('adm_milhos'), #hola123
+('milhos'); #hola321
+
+
+create table if not exists roles(
+id int auto_increment primary key,
+user_id int,
+authority varchar(45) not null,
+foreign key (user_id) references usuarios (id)
+);
+
+
+insert into roles values
+(null, 1, 'ROL_ADMIN'),
+(null, 1, 'ROL_USUARIO'),
+(null, 2, 'ROL_USUARIO');
 
 CREATE TABLE IF NOT EXISTS Cliente (
     IDCliente INT AUTO_INCREMENT NOT NULL,

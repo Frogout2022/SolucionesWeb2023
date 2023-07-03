@@ -1,5 +1,5 @@
-return redirect:/ -> link (llama al controlador)
-return "/cliente/login" -> ruta html
+return redirect:/ -> link (llama al controlador) ( se pierde el model)
+return "/cliente/login" -> ruta html (no se pierde el model)
 
 th:href=@{/cliente/cliente2} -> index + ruta cliente
 th:href=@{cliente/cliente2} -> index + ruta actual + cliente

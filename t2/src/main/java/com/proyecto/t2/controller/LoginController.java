@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.t2.model.entidad.Cliente;
 import com.proyecto.t2.model.entidad.Empleado;
-import com.proyecto.t2.model.entidad.User;
+import com.proyecto.t2.model.entidad.Sesion;
 import com.proyecto.t2.model.service.IClienteService;
 import com.proyecto.t2.model.service.IEmpleadoService;
 
@@ -30,13 +30,13 @@ public class LoginController {
  
     @GetMapping("/login") //vista
     public String login(Cliente cli, Model model){ 
-        if(User.sesion){
-            if(User.login_cli) return "redirect:/extranet"; //link
-            if(User.login_emp) return "redirect:/intranet"; //link
+        if(Sesion.sesion){
+            if(Sesion.login_cli) return "redirect:/extranet"; //link
+            if(Sesion.login_emp) return "redirect:/intranet"; //link
         }else{
-            if(User.recordar){
-                model.addAttribute("usuario",User.correo);
-                model.addAttribute("contra", User.clave);
+            if(Sesion.recordar){
+                model.addAttribute("usuario",Sesion.correo);
+                model.addAttribute("contra", Sesion.clave);
                 model.addAttribute("activo", "true");
             }
            return "cliente/login"; //ruta html
@@ -46,14 +46,14 @@ public class LoginController {
     }
     @GetMapping("/loginClose") //cerrar sesión
     public String login2(Cliente cli, Model model){
-        if(User.sesion) User.sesion = false; //cerrar sesión
-        if(User.login_cli) User.login_cli = false;
-        if(User.login_emp) User.login_emp = false;
+        if(Sesion.sesion) Sesion.sesion = false; //cerrar sesión
+        if(Sesion.login_cli) Sesion.login_cli = false;
+        if(Sesion.login_emp) Sesion.login_emp = false;
 
          
-        if(User.recordar){
-            model.addAttribute("usuario",User.correo);
-            model.addAttribute("contra", User.clave);
+        if(Sesion.recordar){
+            model.addAttribute("usuario",Sesion.correo);
+            model.addAttribute("contra", Sesion.clave);
             model.addAttribute("activo", "true");
         }
 
@@ -73,19 +73,19 @@ public class LoginController {
 
         if(buscarCli(cli.getCorreo(),cli.getClave())) {//CLIENTE ENCONTRADO
             //INICIALIZAR LA SESIÓN
-            User.sesion = true; 
-            User.login_cli = true;
+            Sesion.sesion = true; 
+            Sesion.login_cli = true;
 
             //guardar cliente para luego obtener sus datos
-            User user = new User();
+            Sesion user = new Sesion();
             if(user.saveCliente(listaClientes, cli.getCorreo(), cli.getClave())){
                 //REDIRECCIÓN A LA EXTRANET
                 {
                     if(recordar!=null && recordar){
-                        User.recordar = true;
-                        User.correo = cli.getCorreo();
-                        User.clave = cli.getClave();
-                    }else User.recordar = false;
+                        Sesion.recordar = true;
+                        Sesion.correo = cli.getCorreo();
+                        Sesion.clave = cli.getClave();
+                    }else Sesion.recordar = false;
 
                 }
 
@@ -98,18 +98,18 @@ public class LoginController {
             //BUSCAR ADMIN
             if(buscarAdmin(cli.getCorreo(), cli.getClave())){//ADMIN ENCONTRADO
                 //INICIALIZAR LA SESIÓN
-                User.sesion = true; 
-                User.login_emp = true;
+                Sesion.sesion = true; 
+                Sesion.login_emp = true;
 
                 //GUARDAR AL ADMIN
                 //--------opcional ------------
                 
                 {
                     if(recordar!=null && recordar){
-                        User.recordar = true;
-                        User.correo = cli.getCorreo();
-                        User.clave = cli.getClave();
-                    }else User.recordar = false;
+                        Sesion.recordar = true;
+                        Sesion.correo = cli.getCorreo();
+                        Sesion.clave = cli.getClave();
+                    }else Sesion.recordar = false;
 
                 }
 

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.t2.model.entidad.Pollo;
-import com.proyecto.t2.model.entidad.User;
 import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 
 @Controller
@@ -18,14 +17,10 @@ public class PolloController {
     private IPolloService polloService;
     @RequestMapping("/")
     public String inicio(Model model){
-        if(User.sesion && User.login_emp){//validar sesion del admin
-            Pollo pollo=new Pollo();
-            model.addAttribute("pollo", pollo);
-            model.addAttribute("listaPollo", polloService.mostrarPollos());
-            return "sistema/pollo";
-        }
-        return "redirect:/login";
-       
+        Pollo pollo=new Pollo();
+        model.addAttribute("pollo", pollo);
+        model.addAttribute("listaPollo", polloService.mostrarPollos());
+        return "sistema/pollo";
     }
 
     @RequestMapping("/guardar")
@@ -36,15 +31,14 @@ public class PolloController {
 
     @RequestMapping("/mostrarEditar/{id}")
     public String editar(@PathVariable(value = "id") Long id, Model model){
-        if(User.sesion && User.login_emp){//validar sesion del admin
-            Pollo pollo = new Pollo();
-            pollo = polloService.buscarPollo(id);
-            model.addAttribute("pollo", pollo);
-            model.addAttribute("titulo", "Modificar pollo");
-            model.addAttribute("listaCategorias", polloService.mostrarPollos());
-            return "sistema/pollo"; 
-        }
-        return "redirect:/login";
+       
+        Pollo pollo = new Pollo();
+        pollo = polloService.buscarPollo(id);
+        model.addAttribute("pollo", pollo);
+        model.addAttribute("titulo", "Modificar pollo");
+        model.addAttribute("listaCategorias", polloService.mostrarPollos());
+        return "sistema/pollo"; 
+       
     }
 
     @RequestMapping("/eliminar/{id}")

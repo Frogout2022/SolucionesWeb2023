@@ -12,7 +12,6 @@ import com.proyecto.t2.model.service.sistema.interfaces.IMenuService;
 import com.proyecto.t2.model.service.sistema.interfaces.IPiqueoService;
 import com.proyecto.t2.model.service.sistema.interfaces.IPolloService;
 import com.proyecto.t2.model.entidad.Combo;
-import com.proyecto.t2.model.entidad.User;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,21 +37,20 @@ public class ComboController {
 
     @RequestMapping("/")
     public String inicio(Combo combo, Model model,RedirectAttributes flash){
-        if(User.validar_admin()){
-            //LISTAR EN COMBOBOX DEL FORM
-            model.addAttribute("listaBebidas", bebidaService.mostrBebidas());
-            model.addAttribute("listaMenu", iMenuService.mostrarMenus());
-            model.addAttribute("listaPiqueo", iPiqueoService.mostrarPiqueos());
-            model.addAttribute("listaPollo", iPolloService.mostrarPollos());
-            
+       
+        //LISTAR EN COMBOBOX DEL FORM
+        model.addAttribute("listaBebidas", bebidaService.mostrBebidas());
+        model.addAttribute("listaMenu", iMenuService.mostrarMenus());
+        model.addAttribute("listaPiqueo", iPiqueoService.mostrarPiqueos());
+        model.addAttribute("listaPollo", iPolloService.mostrarPollos());
         
-            //LISTAR COMBOS REGISTRADOS EN LA TABLA INFERIOR
-            model.addAttribute("listaCombo", comboService.mostrarCombos());
+    
+        //LISTAR COMBOS REGISTRADOS EN LA TABLA INFERIOR
+        model.addAttribute("listaCombo", comboService.mostrarCombos());
 
-        
-            return "sistema/combo";
-        }
-        return "redirect:/login";
+    
+        return "sistema/combo";
+    
         
     }
 
