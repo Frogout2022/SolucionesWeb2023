@@ -79,7 +79,10 @@ insert into roles(user_id, authority) values
 (7, 'ROL_USUARIO'),
 (8, 'ROL_USUARIO');
 
-#-------- TABLAS DEL SISTEMA --------
+#------------------------------------- TABLAS DEL SISTEMA --------
+
+
+
 CREATE TABLE IF NOT EXISTS Bebida (
     IDBebida INT AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(20) NULL,
@@ -90,26 +93,44 @@ CREATE TABLE IF NOT EXISTS Bebida (
     PRIMARY KEY (IDBebida)
 ) ;
 
+INSERT INTO BEBIDA VALUES
+(null,'INKA-COLA','GASEOSA','1.5LT',6,20),
+(null,'PEPSI','GASEOSA','1.5LT',5,20);
+
+
 
 CREATE TABLE IF NOT EXISTS Menu (
     IDMenu INT AUTO_INCREMENT NOT NULL,
     Nombre VARCHAR(20) NULL,
-    Tipo VARCHAR(10) NULL,
+    Tipo VARCHAR(30) NULL,
     Precio DECIMAL(5, 2) NULL,
     Stock INT NULL,
     PRIMARY KEY (IDMenu)
 );
 
+insert into menu (nombre, tipo,precio,stock) values
+('Lomo Saltado','PLATO A LA CARTA', 20, 10) ,
+('Chaufa de pollo','CHIFA', 16, 11) ,
+('Aeropuerto de pollo','CHIFA', 20, 12) ,
+('Arroz a la cubana', 'PLATO A LA CARTA',12, 13) ,
+('Salchipapa', 'COMIDA RAPIDA',15, 14) ,
+('Chicharron de pollo','COMIDA RAPIDA', 19, 15) ,
+('Tortilla de Verduras', 'DESAYUNO', 12, 16) ,
+('Aji de Gallina','MENU', 19, 20) ;
+
 
 CREATE TABLE IF NOT EXISTS Piqueo (
     IDPiqueo INT AUTO_INCREMENT NOT NULL,
-    Nombre VARCHAR(20) NULL,
+    Nombre VARCHAR(80) NULL,
     Tipo VARCHAR(10) NULL,
     Precio DECIMAL(5, 2) NULL,
     Porcion VARCHAR(10) NULL,
     Stock INT NULL,
     PRIMARY KEY (IDPiqueo)
 ) ;
+
+insert into piqueo values
+(null, 'PORCION DE PAPAS + ENSALADA CLASICA', 'COMBO', 10,'FAMILIAR',10);
 
 CREATE TABLE IF NOT EXISTS Pollo (
     IDPollo INT AUTO_INCREMENT NOT NULL,
@@ -121,9 +142,11 @@ CREATE TABLE IF NOT EXISTS Pollo (
 );
 
 insert into Pollo (nombre,precio,stock,cantidad) values
-('1/4 POLLO',18.5,10, '5'),
-('1/2 POLLO',28.5,11, '5'),
-('1 POLLO',58,12, '5');
+('6/4 POLLO',80.5,10, '5'), #i:1
+('5/4 POLLO',70,10, '5'), #i:2
+('1/4 POLLO',18.5,10, '5'),#i:3
+('1/2 POLLO',28.5,11, '5'),#i:4
+('1 POLLO',58,12, '5');#i:5
 
 
 CREATE TABLE IF NOT EXISTS Combo (
@@ -142,12 +165,33 @@ CREATE TABLE IF NOT EXISTS Combo (
     FOREIGN KEY (IDPollo) REFERENCES Pollo (IDPollo) on delete cascade
 ) ;
 
-insert into combo (nombre,precio,stock) values
-('COMBO 1',55,10),
-('COMBO 2',65,11),
-('COMBO 3',75,12),
-('COMBO 4',85,13),
-('COMBO 5',95,14);
+# pepsi -> i:2 ; inka -> i:1
+insert into combo (nombre,idmenu,idpollo,idbebida,idpiqueo,precio,stock) values
+('COMBO ESPECIAL',2,5,1,1,55,10);
+insert into combo (nombre,idpollo,idbebida,idpiqueo,precio,stock) values
+('COMBO 2',5,2,1,65,11),
+('COMBO 3',2,2,1,75,12),
+('COMBO 4',1,1,1,85,13);
+
+
+
+CREATE TABLE IF NOT EXISTS CARRITO(
+	IDCARRO INT AUTO_INCREMENT NOT NULL primary key,
+    ID_CLI INT NOT NULL,
+    nom_prod varchar(50) null,
+    cantidad_prod int null,
+    precio_prod decimal(8,2) null,
+    subtotal DECIMAL(8, 2) NULL,
+	
+    foreign key (ID_cli) references Cliente (idCliente) on delete cascade
+);
+
+insert into carrito values
+(null, 1,'combo 1', 2, 10, 20);
+select * from carrito;
+
+
+
 
 
 
@@ -170,3 +214,4 @@ CREATE TABLE IF NOT EXISTS Compra (
     FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente),
     FOREIGN KEY (IDPiqueo) REFERENCES Piqueo (IDPiqueo)
 );
+
